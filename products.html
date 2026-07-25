@@ -3,226 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>အဝတ်အထည်များ - Sunflower Clothing Fashion</title>
+    <title>Products - Sunflower Clothing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: #faf9f6; padding-top: 80px; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: white; position: fixed; top: 0; width: 100%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; }
+        .logo { font-size: 22px; font-weight: bold; color: #e6a100; text-decoration: none; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 500; }
+        .cart-icon { position: relative; cursor: pointer; font-size: 20px; color: #333; }
+        .cart-count { position: absolute; top: -8px; right: -10px; background: #e6a100; color: white; border-radius: 50%; padding: 2px 6px; font-size: 11px; font-weight: bold; }
 
-        body {
-            background-color: #faf9f6;
-            color: #333;
-            padding-top: 70px; /* Fixed Navbar ကြောင့် Padding ပေးထားပါသည် */
-        }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 25px; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; padding-bottom: 15px; }
+        .product-img { width: 100%; height: 260px; object-fit: cover; }
+        .product-title { font-size: 16px; margin: 10px 0; }
+        .product-price { color: #e6a100; font-weight: bold; margin-bottom: 10px; }
+        .btn-add-cart { background: #e6a100; color: white; border: none; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .btn-add-cart:hover { background: #c88c00; }
 
-        /* Fixed Navigation Bar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: #e6a100;
-            letter-spacing: 1px;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin-left: auto;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #e6a100;
-            font-weight: bold;
-        }
-
-        /* Page Header */
-        .page-header {
-            background-color: #fff9e6;
-            padding: 30px 5%;
-            text-align: center;
-            border-bottom: 1px solid #f0e6cc;
-        }
-
-        .page-header h1 {
-            font-size: 24px;
-            color: #222;
-            margin-bottom: 6px;
-        }
-
-        .page-header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Container */
-        .container {
-            padding: 40px 4%;
-        }
-
-        /* Grid System (တစ်တန်းမှာ ၅ ခုစီ) */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 1200px) {
-            .products-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (max-width: 900px) {
-            .products-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .products-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* Product Card Design */
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-            transition: transform 0.3s;
-            border: 1px solid #eee;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 12px;
-            text-align: center;
-        }
-
-        .product-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #333;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .product-price {
-            color: #e6a100;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #aaa;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-size: 13px;
-        }
+        /* Cart Drawer */
+        .cart-drawer { position: fixed; top: 0; right: -350px; width: 320px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1000; transition: right 0.3s; padding: 20px; display: flex; flex-direction: column; }
+        .cart-drawer.active { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px; font-size: 14px; }
+        .btn-checkout { background: #25d366; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; margin-top: 10px; }
     </style>
 </head>
 <body>
-
-    <!-- Fixed Navigation Bar -->
     <nav class="navbar">
         <a href="index.html" class="logo">🌻 SUNFLOWER</a>
         <ul class="nav-links">
             <li><a href="index.html">ပင်မစာမျက်နှာ</a></li>
-            <li><a href="products.html" class="active">အဝတ်အထည်များ</a></li>
+            <li><a href="products.html" style="color:#e6a100; font-weight:bold;">အဝတ်အထည်များ</a></li>
             <li><a href="promotion.html">Promotion</a></li>
             <li><a href="contact.html">ဆက်သွယ်ရန်</a></li>
         </ul>
+        <div class="cart-icon" id="cartBtn">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
     </nav>
 
-    <!-- Page Title -->
-    <section class="page-header">
-        <h1>အဝတ်အထည်များ (Our Collections)</h1>
-        <p>Sunflower မှ ရရှိနိုင်သော ဖက်ရှင်ဒီဇိုင်းများ</p>
-    </section>
-
-    <!-- Products Grid -->
     <div class="container">
-        <div class="products-grid">
+        <h2 style="text-align: center; margin-bottom: 30px;">အဝတ်အထည်များ</h2>
+        <div class="product-grid">
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=500&auto=format&fit=crop" alt="Dress 1">
-                <div class="product-info">
-                    <div class="product-title">Summer Floral Dress</div>
-                    <div class="product-price">25,000 MMK</div>
-                </div>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600" class="product-img">
+                <div class="product-title">Floral Summer Dress</div>
+                <div class="product-price">25000</div>
+                <button class="btn-add-cart" onclick="addToCart('Floral Summer Dress', 25000)">ခြင်းထဲထည့်မည်</button>
             </div>
-
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=500&auto=format&fit=crop" alt="Top 1">
-                <div class="product-info">
-                    <div class="product-title">Casual Yellow Top</div>
-                    <div class="product-price">18,000 MMK</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=500&auto=format&fit=crop" alt="Set 1">
-                <div class="product-info">
-                    <div class="product-title">Classic Outfit Set</div>
-                    <div class="product-price">32,000 MMK</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=500&auto=format&fit=crop" alt="Blouse 1">
-                <div class="product-info">
-                    <div class="product-title">Elegant White Blouse</div>
-                    <div class="product-price">22,000 MMK</div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?q=80&w=500&auto=format&fit=crop" alt="Skirt 1">
-                <div class="product-info">
-                    <div class="product-title">Yellow Pleated Skirt</div>
-                    <div class="product-price">20,000 MMK</div>
-                </div>
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=600" class="product-img">
+                <div class="product-title">Casual Crop Top</div>
+                <div class="product-price">18000</div>
+                <button class="btn-add-cart" onclick="addToCart('Casual Crop Top', 18000)">ခြင်းထဲထည့်မည်</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Sunflower Clothing Fashion. All rights reserved.</p>
-    </footer>
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>ဈေးဝယ်ခြင်းတောင်း</h3>
+            <span style="cursor:pointer; font-size:20px;" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p style="text-align:center; color:#888; margin-top:20px;">ခြင်းတောင်းထဲတွင် ပစ္စည်းမရှိသေးပါ</p>
+        </div>
+        <div style="font-weight:bold; margin-top:10px;">စုစုပေါင်း: <span id="cartTotal">0</span> ကျပ်</div>
+        <button class="btn-checkout" onclick="checkout()">အော်ဒါတင်မည် (Direct Order)</button>
+    </div>
 
+    <script>
+        let cart = [];
+        const cartDrawer = document.getElementById('cartDrawer');
+        document.getElementById('cartBtn').onclick = () => cartDrawer.classList.add('active');
+        document.getElementById('closeCart').onclick = () => cartDrawer.classList.remove('active');
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            updateCart();
+        }
+
+        function updateCart() {
+            document.getElementById('cartCount').textContent = cart.length;
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>${item.price} ကျပ်</span></div>`;
+            });
+            document.getElementById('cartTotal').textContent = total;
+        }
+
+        function checkout() {
+            if(cart.length === 0) return alert('ခြင်းတောင်းထဲသို့ ပစ္စည်း အရင်ထည့်ပါ');
+            alert('အော်ဒါလက်ခံရရှိပါသည်။ ကျေးဇူးတင်ပါသည်။');
+            cart = [];
+            updateCart();
+            cartDrawer.classList.remove('active');
+        }
+    </script>
 </body>
 </html>
