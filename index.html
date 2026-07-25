@@ -20,13 +20,12 @@
             padding-top: 105px;
         }
 
-        /* Top Announcement Bar */
+        /* 1. Top Announcement Bar (အပေါ်ဆုံး စာသားပြေးသည့် အပိုင်း) */
         .announcement-bar {
             background-color: #e6a100;
             color: #ffffff;
-            text-align: center;
-            padding: 8px 10px;
-            font-size: 13px;
+            padding: 8px 0;
+            font-size: 13.5px;
             font-weight: 600;
             position: fixed;
             top: 0;
@@ -34,6 +33,27 @@
             width: 100%;
             z-index: 1001;
             letter-spacing: 0.5px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .announcement-text {
+            display: inline-block;
+            animation: marqueeTop 14s linear infinite;
+        }
+
+        /* Mouse တင်ထားရင် စာသားပြေးတာ ခဏရပ်ရန် */
+        .announcement-bar:hover .announcement-text {
+            animation-play-state: paused;
+        }
+
+        @keyframes marqueeTop {
+            0% {
+                transform: translateX(100vw);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* Fixed Navigation Bar */
@@ -87,7 +107,7 @@
             padding: 0 20px;
         }
 
-        /* 1. Hero Banner Section (စာသားပြေး Animation ပါဝင်သည့် အပိုင်း) */
+        /* 2. Hero Banner Section (စာသားမပြေးဘဲ ပုံမှန်အတိုင်း ပြန်ထားသည့် အပိုင်း) */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
             height: 420px;
@@ -102,38 +122,14 @@
             margin-top: 20px;
             margin-bottom: 50px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            overflow: hidden; /* စာသားဘောင်အပြင်ဘက်မထွက်စေရန် */
         }
 
-        /* Running Text (Marquee Wrapper) */
-        .hero-marquee-container {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-bottom: 15px;
-        }
-
-        .hero-marquee-text {
-            display: inline-block;
-            font-size: 36px;
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
             font-weight: 700;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
             color: #ffffff;
-            animation: marquee 12s linear infinite; /* စာသားပြေးနှုန်း ၁၂ စက္ကန့် */
-        }
-
-        /* စာသားပေါ် Mouse တင်လိုက်ရင် ခဏရပ်သွားစေရန် */
-        .hero-marquee-container:hover .hero-marquee-text {
-            animation-play-state: paused;
-        }
-
-        @keyframes marquee {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
         }
 
         .hero p {
@@ -181,7 +177,7 @@
             border-radius: 2px;
         }
 
-        /* 2. Featured Products Section */
+        /* Featured Products Section */
         .featured-products {
             margin-bottom: 60px;
         }
@@ -248,7 +244,7 @@
             color: white;
         }
 
-        /* 3. Why Choose Us Section */
+        /* Why Choose Us Section */
         .why-us {
             background-color: #ffffff;
             padding: 40px 20px;
@@ -283,7 +279,7 @@
             line-height: 1.5;
         }
 
-        /* 4. Customer Reviews Section */
+        /* Customer Reviews Section */
         .reviews-section {
             margin-bottom: 60px;
         }
@@ -336,9 +332,11 @@
 </head>
 <body>
 
-    <!-- Top Announcement Bar -->
+    <!-- 1. Top Announcement Bar (အပေါ်ဆုံး စာသားပြေးသည့် အပိုင်း) -->
     <div class="announcement-bar">
-        🌻 ပုသိမ်မြို့တွင်း ပို့ခ အခမဲ့! အခြားနယ်မြို့များသို့လည်း အမြန်ချောပို့ဖြင့် ပို့ဆောင်ပေးနေပါပြီ။
+        <div class="announcement-text">
+            🌻 ပုသိမ်မြို့တွင်း ပို့ခ အခမဲ့! အခြားနယ်မြို့များသို့လည်း အမြန်ချောပို့ဖြင့် ပို့ဆောင်ပေးနေပါပြီ။ 🌻
+        </div>
     </div>
 
     <!-- Navigation Bar -->
@@ -353,16 +351,14 @@
     </nav>
 
     <main class="container">
-        <!-- 1. Hero Banner Section (ပြေးနေသော စာသားအကျိုးသက်ရောက်မှုပါဝင်သည်) -->
+        <!-- 2. Hero Banner Section (စာသားမပြေးဘဲ ပုံမှန်အတိုင်းထားရှိပါသည်) -->
         <section class="hero">
-            <div class="hero-marquee-container">
-                <h1 class="hero-marquee-text">🌻 Welcome to Sunflower Clothing Fashion — New Arrival Collections 2026 🌻</h1>
-            </div>
+            <h1>🌻 Welcome to Sunflower Clothing Fashion 🌻</h1>
             <p>ခေတ်မီဆန်းသစ်ပြီး စိတ်တိုင်းကျလှပစေမယ့် Sunflower Local Brand ရဲ့ အဝတ်အထည်သစ်များကို အခုပဲ ကြည့်ရှုလိုက်ပါ။</p>
             <a href="products.html" class="btn-shop">အခုပဲ ဝယ်ယူမည် <i class="fa-solid fa-arrow-right"></i></a>
         </section>
 
-        <!-- 2. Featured Products Section -->
+        <!-- Featured Products Section -->
         <section class="featured-products">
             <h2 class="section-title">လူကြိုက်များသော အထည်များ</h2>
             <div class="product-grid">
@@ -405,7 +401,7 @@
             </div>
         </section>
 
-        <!-- 3. Why Choose Us Section -->
+        <!-- Why Choose Us Section -->
         <section class="why-us">
             <h2 class="section-title">ဘာလို့ Sunflower ကို ရွေးချယ်သင့်သလဲ?</h2>
             <div class="features-grid">
@@ -427,7 +423,7 @@
             </div>
         </section>
 
-        <!-- 4. Customer Reviews Section -->
+        <!-- Customer Reviews Section -->
         <section class="reviews-section">
             <h2 class="section-title">ဝယ်ယူသူများ၏ စကားသံများ</h2>
             <div class="reviews-grid">
