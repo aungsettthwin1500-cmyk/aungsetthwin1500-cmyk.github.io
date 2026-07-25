@@ -3,54 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promotions - Sunflower Clothing</title>
+    <title>Promotions - SUNFLOWER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: #faf9f6; padding-top: 90px; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: white; position: fixed; top: 0; width: 100%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-size: 22px; font-weight: bold; color: #e6a100; text-decoration: none; }
-        .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #333; font-weight: 500; }
+        :root {
+            --primary: #222222;
+            --accent: #d4af37;
+            --bg-light: #faf8f5;
+            --card-bg: #ffffff;
+            --text-main: #2c2c2c;
+            --border: #eae6df;
+        }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-        .promo-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; border-left: 6px solid #e6a100; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .promo-code { background: #fff8e7; border: 1px dashed #e6a100; padding: 8px 15px; border-radius: 6px; font-weight: bold; color: #e6a100; }
-        .btn-copy { background: #333; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-main); }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--primary); text-decoration: none; }
+        .nav-menu { display: flex; gap: 30px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--text-main); font-size: 14px; font-weight: 500; }
+        .nav-menu a.active { color: var(--accent); }
+
+        .container { max-width: 900px; margin: 50px auto; padding: 0 8%; }
+        .page-title { text-align: center; font-size: 28px; font-weight: 300; letter-spacing: 1px; margin-bottom: 40px; text-transform: uppercase; }
+
+        .promo-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .promo-details h3 { font-size: 18px; font-weight: 500; margin-bottom: 5px; }
+        .promo-details p { color: #777; font-size: 14px; }
+
+        .promo-code-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-tag {
+            background: #f4efea;
+            border: 1px dashed var(--accent);
+            color: var(--primary);
+            padding: 10px 18px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .btn-copy {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-copy:hover { background: var(--accent); }
+
+        footer { background-color: var(--primary); color: #888; text-align: center; padding: 30px; font-size: 13px; margin-top: 80px; }
     </style>
 </head>
 <body>
+
     <nav class="navbar">
-        <a href="index.html" class="logo">🌻 SUNFLOWER</a>
-        <ul class="nav-links">
-            <li><a href="index.html">ပင်မစာမျက်နှာ</a></li>
-            <li><a href="products.html">အဝတ်အထည်များ</a></li>
-            <li><a href="promotion.html" style="color:#e6a100; font-weight:bold;">Promotion</a></li>
-            <li><a href="contact.html">ဆက်သွယ်ရန်</a></li>
+        <a href="index.html" class="brand-logo">SUNFLOWER</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Collection</a></li>
+            <li><a href="promotion.html" class="active">Promotions</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <h2 style="text-align: center; margin-bottom: 30px;">အထူး လျှော့ဈေး အစီအစဉ်များ</h2>
+        <h1 class="page-title">Special Offers</h1>
 
-        <div class="promo-card">
-            <div>
-                <h3>10% Off New Customer Offer</h3>
-                <p style="color:#666; font-size:14px; margin-top:5px;">ပထမဆုံး အကြိမ် ဝယ်ယူသူများအတွက် ၁၀% လျှော့ဈေးကူပွန်</p>
+        <div class="promo-box">
+            <div class="promo-details">
+                <h3>NEW CUSTOMER DISCOUNT</h3>
+                <p>ပထမဆုံးအကြိမ် ဝယ်ယူသူများအတွက် ၁၀% လျှော့ဈေး</p>
             </div>
-            <div style="display:flex; gap:10px; align-items:center;">
-                <span class="promo-code" id="code1">SUNFLOWER10</span>
-                <button class="btn-copy" onclick="copyCode('code1')"><i class="fa-regular fa-copy"></i> Copy</button>
+            <div class="promo-code-wrap">
+                <span class="code-tag" id="code1">SUNFLOWER10</span>
+                <button class="btn-copy" onclick="copyCoupon('code1')">Copy</button>
+            </div>
+        </div>
+
+        <div class="promo-box">
+            <div class="promo-details">
+                <h3>FREE SHIPPING OFFER</h3>
+                <p>၃ ထည်နှင့်အထက် ဝယ်ယူပါက ပို့ခ အခမဲ့</p>
+            </div>
+            <div class="promo-code-wrap">
+                <span class="code-tag" id="code2">FREESHIP3</span>
+                <button class="btn-copy" onclick="copyCoupon('code2')">Copy</button>
             </div>
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2026 SUNFLOWER CLOTHING. ALL RIGHTS RESERVED.</p>
+    </footer>
+
     <script>
-        function copyCode(id) {
+        function copyCoupon(id) {
             const code = document.getElementById(id).innerText;
             navigator.clipboard.writeText(code);
-            alert('Promo Code: ' + code + ' ကို Copy ယူပြီးပါပြီ!');
+            alert('Promo Code: ' + code + ' ကို ကူးယူပြီးပါပြီ။');
         }
     </script>
+
 </body>
 </html>
