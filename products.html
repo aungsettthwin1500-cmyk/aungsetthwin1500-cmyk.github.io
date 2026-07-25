@@ -3,112 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - Sunflower Clothing</title>
+    <title>Collection - SUNFLOWER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: #faf9f6; padding-top: 80px; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: white; position: fixed; top: 0; width: 100%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; }
-        .logo { font-size: 22px; font-weight: bold; color: #e6a100; text-decoration: none; }
-        .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #333; font-weight: 500; }
-        .cart-icon { position: relative; cursor: pointer; font-size: 20px; color: #333; }
-        .cart-count { position: absolute; top: -8px; right: -10px; background: #e6a100; color: white; border-radius: 50%; padding: 2px 6px; font-size: 11px; font-weight: bold; }
+        :root {
+            --primary: #222222;
+            --accent: #d4af37;
+            --bg-light: #faf8f5;
+            --card-bg: #ffffff;
+            --text-main: #2c2c2c;
+            --border: #eae6df;
+        }
 
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 25px; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; padding-bottom: 15px; }
-        .product-img { width: 100%; height: 260px; object-fit: cover; }
-        .product-title { font-size: 16px; margin: 10px 0; }
-        .product-price { color: #e6a100; font-weight: bold; margin-bottom: 10px; }
-        .btn-add-cart { background: #e6a100; color: white; border: none; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        .btn-add-cart:hover { background: #c88c00; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-main); }
 
-        /* Cart Drawer */
-        .cart-drawer { position: fixed; top: 0; right: -350px; width: 320px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1000; transition: right 0.3s; padding: 20px; display: flex; flex-direction: column; }
-        .cart-drawer.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #f9f9f9; padding-bottom: 8px; font-size: 14px; }
-        .btn-checkout { background: #25d366; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; margin-top: 10px; }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--primary); text-decoration: none; }
+        .nav-menu { display: flex; gap: 30px; list-style: none; }
+        .nav-menu a { text-decoration: none; color: var(--text-main); font-size: 14px; font-weight: 500; }
+        .nav-menu a.active { color: var(--accent); }
+
+        .container { max-width: 1300px; margin: 40px auto; padding: 0 8%; }
+        .page-title { text-align: center; font-size: 28px; font-weight: 300; letter-spacing: 1px; margin-bottom: 40px; text-transform: uppercase; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .product-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+        .product-price { color: var(--accent); font-weight: 600; font-size: 14px; margin-bottom: 15px; }
+
+        .btn-order {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 10px 0;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-order:hover { background: var(--accent); }
+
+        footer { background-color: var(--primary); color: #888; text-align: center; padding: 30px; font-size: 13px; margin-top: 80px; }
     </style>
 </head>
 <body>
+
     <nav class="navbar">
-        <a href="index.html" class="logo">🌻 SUNFLOWER</a>
-        <ul class="nav-links">
-            <li><a href="index.html">ပင်မစာမျက်နှာ</a></li>
-            <li><a href="products.html" style="color:#e6a100; font-weight:bold;">အဝတ်အထည်များ</a></li>
-            <li><a href="promotion.html">Promotion</a></li>
-            <li><a href="contact.html">ဆက်သွယ်ရန်</a></li>
+        <a href="index.html" class="brand-logo">SUNFLOWER</a>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html" class="active">Collection</a></li>
+            <li><a href="promotion.html">Promotions</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
-        <div class="cart-icon" id="cartBtn">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-count" id="cartCount">0</span>
-        </div>
     </nav>
 
     <div class="container">
-        <h2 style="text-align: center; margin-bottom: 30px;">အဝတ်အထည်များ</h2>
+        <h1 class="page-title">Our Collections</h1>
+
         <div class="product-grid">
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600" class="product-img">
-                <div class="product-title">Floral Summer Dress</div>
-                <div class="product-price">25000</div>
-                <button class="btn-add-cart" onclick="addToCart('Floral Summer Dress', 25000)">ခြင်းထဲထည့်မည်</button>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600">
+                <div class="product-title">Minimalist Summer Dress</div>
+                <div class="product-price">၂၅,၀၀၀ ကျပ်</div>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
             </div>
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=600" class="product-img">
-                <div class="product-title">Casual Crop Top</div>
-                <div class="product-price">18000</div>
-                <button class="btn-add-cart" onclick="addToCart('Casual Crop Top', 18000)">ခြင်းထဲထည့်မည်</button>
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=600">
+                <div class="product-title">Casual Linen Top</div>
+                <div class="product-price">၁၈,၀၀၀ ကျပ်</div>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=600">
+                <div class="product-title">Elegance Long Skirt</div>
+                <div class="product-price">၂၂,၀၀၀ ကျပ်</div>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1551163943-3f6a855d1153?q=80&w=600">
+                <div class="product-title">Classic White Shirt</div>
+                <div class="product-price">၂၀,၀၀၀ ကျပ်</div>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
             </div>
         </div>
     </div>
 
-    <!-- Cart Drawer -->
-    <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-            <h3>ဈေးဝယ်ခြင်းတောင်း</h3>
-            <span style="cursor:pointer; font-size:20px;" id="closeCart">&times;</span>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <p style="text-align:center; color:#888; margin-top:20px;">ခြင်းတောင်းထဲတွင် ပစ္စည်းမရှိသေးပါ</p>
-        </div>
-        <div style="font-weight:bold; margin-top:10px;">စုစုပေါင်း: <span id="cartTotal">0</span> ကျပ်</div>
-        <button class="btn-checkout" onclick="checkout()">အော်ဒါတင်မည် (Direct Order)</button>
-    </div>
+    <footer>
+        <p>&copy; 2026 SUNFLOWER CLOTHING. ALL RIGHTS RESERVED.</p>
+    </footer>
 
-    <script>
-        let cart = [];
-        const cartDrawer = document.getElementById('cartDrawer');
-        document.getElementById('cartBtn').onclick = () => cartDrawer.classList.add('active');
-        document.getElementById('closeCart').onclick = () => cartDrawer.classList.remove('active');
-
-        function addToCart(name, price) {
-            cart.push({name, price});
-            updateCart();
-        }
-
-        function updateCart() {
-            document.getElementById('cartCount').textContent = cart.length;
-            const container = document.getElementById('cartItems');
-            container.innerHTML = '';
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                container.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>${item.price} ကျပ်</span></div>`;
-            });
-            document.getElementById('cartTotal').textContent = total;
-        }
-
-        function checkout() {
-            if(cart.length === 0) return alert('ခြင်းတောင်းထဲသို့ ပစ္စည်း အရင်ထည့်ပါ');
-            alert('အော်ဒါလက်ခံရရှိပါသည်။ ကျေးဇူးတင်ပါသည်။');
-            cart = [];
-            updateCart();
-            cartDrawer.classList.remove('active');
-        }
-    </script>
 </body>
 </html>
