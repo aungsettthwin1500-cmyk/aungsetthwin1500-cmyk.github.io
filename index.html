@@ -3,217 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ဆက်သွယ်ရန် - SUNFLOWER</title>
+    <title>SUNFLOWER - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --primary: #f59e0b; /* Yellow/Gold Accent */
             --primary-dark: #d97706;
-            --bg-main: #f8fafc;
-            --surface: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05);
-            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08);
+            --bg-body: #faf8f5;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --radius: 16px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Padauk', system-ui, sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-dark); line-height: 1.7; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Padauk', sans-serif;
+        }
 
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+        }
+
+        /* 1. Top Announcement Bar */
+        .top-bar {
+            background-color: #eab308;
+            color: #ffffff;
+            text-align: center;
+            padding: 6px 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 2. Navigation Bar */
         .navbar {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            padding: 18px 8%;
+            background-color: #ffffff;
+            padding: 15px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .brand-logo { font-size: 24px; font-weight: 800; color: var(--primary-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 8px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 10px 18px; border-radius: var(--radius-md); font-size: 15px; }
-        .nav-links a.active { background-color: #fffbeb; color: var(--primary-dark); }
-
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .page-title { text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 40px; }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .info-card {
-            background: var(--surface);
-            padding: 30px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid #f1f5f9;
-        }
-
-        .info-card h3 { font-size: 20px; margin-bottom: 20px; color: var(--primary-dark); }
-        .info-item { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; color: var(--text-dark); }
-        .info-item i { color: var(--primary-dark); font-size: 18px; width: 24px; }
-
-        /* Modern FAQ Section */
-        .faq-section {
-            background: var(--surface);
-            padding: 40px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid #f1f5f9;
-        }
-
-        .faq-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .faq-header h2 { font-size: 24px; color: var(--text-dark); }
-
-        .faq-item {
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius-md);
-            margin-bottom: 12px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .faq-question {
-            padding: 18px 20px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: #d97706;
+            text-decoration: none;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: #ffffff;
+            gap: 8px;
+            letter-spacing: 1px;
         }
 
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s;
-            background: #fafafa;
-            color: var(--text-muted);
-            padding: 0 20px;
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
             font-size: 15px;
+            font-weight: bold;
+            transition: color 0.2s;
         }
 
-        .faq-item.active { border-color: var(--primary-dark); }
-        .faq-item.active .faq-question { background: #fffbeb; color: var(--primary-dark); }
-        .faq-item.active .faq-answer { max-height: 150px; padding: 15px 20px; }
-        .faq-item.active .fa-chevron-down { transform: rotate(180deg); transition: transform 0.3s; }
+        .nav-links a.active, 
+        .nav-links a:hover {
+            color: #d97706;
+        }
 
-        footer { background: var(--surface); text-align: center; padding: 35px; margin-top: 80px; border-top: 1px solid #e2e8f0; color: var(--text-muted); }
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        /* 3. Hero Banner Section */
+        .hero-card {
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                        url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=1200') center/cover no-repeat;
+            height: 380px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            color: #f8fafc;
+        }
+
+        .btn-hero {
+            background-color: var(--primary);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-hero:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* 4. Section Title */
+        .section-header {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+
+        .section-header h2 {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--text-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 6px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 12px; }
+            .hero-title { font-size: 24px; }
+            .hero-subtitle { font-size: 14px; }
+            .hero-card { height: 320px; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+        🌻 ပုသိမ်မြို့တွင်း ပို့ခ အခမဲ့! အခြားနယ်မြို့များသို့လည်း အမြန်ချောပို့ဖြင့် ပို့ဆောင်ပေးနေပါပြီ။
+    </div>
+
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <a href="index.html" class="brand-logo"><i class="fa-solid fa-sun"></i> SUNFLOWER</a>
+        <a href="index.html" class="logo">
+            <span>🌻</span> SUNFLOWER
+        </a>
         <ul class="nav-links">
-            <li><a href="index.html">ပင်မစာမျက်နှာ</a></li>
-            <li><a href="products.html">အထည်များ</a></li>
-            <li><a href="promotion.html">ပရိုမိုးရှင်း</a></li>
-            <li><a href="contact.html" class="active">ဆက်သွယ်ရန်</a></li>
+            <li><a href="index.html" class="active">ပင်မစာမျက်နှာ</a></li>
+            <li><a href="products.html">အဝတ်အထည်များ</a></li>
+            <li><a href="promotion.html">Promotion</a></li>
+            <li><a href="contact.html">ဆက်သွယ်ရန်</a></li>
         </ul>
     </nav>
 
+    <!-- Main Content -->
     <main class="container">
-        <h1 class="page-title">ဆက်သွယ်ရန်နှင့် မေးလေ့ရှိသော မေးခွန်းများ</h1>
-
-        <div class="contact-grid">
-            <div class="info-card">
-                <h3>ဆိုင်လိပ်စာနှင့် အချက်အလက်များ</h3>
-                <div class="info-item">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span>ပုသိမ်မြို့၊ ဧရာဝတီတိုင်းဒေသကြီး။</span>
-                </div>
-                <div class="info-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>09-123456789</span>
-                </div>
-                <div class="info-item">
-                    <i class="fa-brands fa-facebook"></i>
-                    <span>Sunflower Clothing Fashion</span>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <h3>ပို့ဆောင်ရေးဆိုင်ရာ</h3>
-                <p style="color: var(--text-muted); margin-bottom: 12px;">• ပုသိမ်မြို့တွင်း အိမ်ရောက်ငွေချေစနစ် ရရှိပါသည်။</p>
-                <p style="color: var(--text-muted);">• နယ်မြို့များအတွက် ငွေလွှဲဝင်ပြီးသည်နှင့် ၁ ရက်မှ ၃ ရက်အတွင်း အမြန်ချောပို့ဖြင့် ပို့ဆောင်ပေးပါသည်။</p>
-            </div>
-        </div>
-
-        <!-- FAQ Accordion Section -->
-        <section class="faq-section">
-            <div class="faq-header">
-                <h2>မေးလေ့ရှိသော မေးခွန်းများ (FAQ)</h2>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Q. အထည်ဆိုဒ် မတော်ရင် လဲလို့ရပါသလား?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    ဟုတ်ကဲ့ ရပါတယ်။ ပစ္စည်းရောက်ရှိပြီး ၃ ရက်အတွင်း အထည်မပျက်စီးသေးပါက ဆိုဒ်ပြန်လည်လဲလှယ်ပေးပါသည်ခင်ဗျာ။
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Q. ပို့ခ ဘယ်လောက်ကျသင့်ပါသလဲ?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    ပုသိမ်မြို့တွင်း ပို့ခ Free ဖြစ်ပြီး၊ နယ်မြို့များအတွက် သက်ဆိုင်ရာ ကားဂိတ် သို့မဟုတ် ချောပို့ခပေါ်မူတည်၍ ၂,၀၀၀ မှ ၃,၅၀၀ ကျပ်ဝန်းကျင် ရှိပါမည်။
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Q. ငွေပေးချေမှုကို ဘယ်လိုစနစ်တွေနဲ့ လက်ခံပါသလဲ?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    KPay, Wave Money, CB Pay သို့မဟုတ် Cash on Delivery (အိမ်ရောက်ငွေချေ) စနစ်များဖြင့် စိတ်ကြိုက် ပေးချေနိုင်ပါသည်။
-                </div>
-            </div>
+        <!-- Hero Banner Cover -->
+        <section class="hero-card">
+            <h1 class="hero-title">🌻 Welcome to Sunflower Cloth</h1>
+            <p class="hero-subtitle">
+                ခေတ်မီဆန်းသစ်ပြီး စိတ်တိုင်းကျလှပစေမယ့် Sunflower Local Brand ရဲ့ အဝတ်အထည်သစ်များကို အခုပဲ ကြည့်ရှုလိုက်ပါ။
+            </p>
+            <a href="products.html" class="btn-hero">
+                အခုပဲ ဝယ်ယူမည် <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </section>
+
+        <!-- Popular Products Section Title -->
+        <div class="section-header">
+            <h2>လူကြိုက်များသော အထည်များ</h2>
+        </div>
     </main>
-
-    <footer>
-        <p>&copy; 2026 SUNFLOWER CLOTHING. ALL RIGHTS RESERVED.</p>
-    </footer>
-
-    <script>
-        // Smooth FAQ Toggle Script
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                
-                // Active မဟုတ်တာတွေကို အရင် ပိတ်မယ်
-                document.querySelectorAll('.faq-item').forEach(otherItem => {
-                    if (otherItem !== parent) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-
-                // ရွေးထားတဲ့ မေးခွန်းကို Toggle လုပ်မယ်
-                parent.classList.toggle('active');
-            });
-        });
-    </script>
 
 </body>
 </html>
