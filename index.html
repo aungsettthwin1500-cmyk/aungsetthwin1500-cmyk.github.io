@@ -79,35 +79,53 @@
         .price { font-size: 1.2rem; font-weight: 800; color: var(--primary-hover); }
         .add-btn { background: var(--bg-light); border: 1px solid #ddd; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
 
+        /* Admin Panel Modal / Section Styling */
+        .admin-section { background: #FFFFFF; margin: 50px 8%; padding: 40px; border-radius: var(--radius-main); box-shadow: var(--shadow-soft); border: 2px dashed var(--primary); }
+        .admin-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+        .btn-save { background: var(--primary-hover); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; font-size: 0.85rem; }
+        th { background: #FFF9E6; color: var(--text-dark); }
+        .thumb { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
+        .action-del { background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; }
+
         @media (max-width: 768px) {
             .hero { grid-template-columns: 1fr; }
+            .admin-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Announcement Bar -->
     <div class="announcement-bar">
         <div class="marquee-content">
             ✨ နှစ်သစ်အကြို အထူးပရိုမိုးရှင်း - ငွေကျပ် ၃၀,၀၀၀ ဖိုးဝယ်ယူပါက အိမ်အရောက် Free Delivery! &nbsp;&nbsp; | &nbsp;&nbsp; 🎁 Coupon Code: SUNFLOWER20
         </div>
     </div>
 
+    <!-- Header -->
     <header>
         <nav>
-            <a href="index.html" class="logo">🌻 <span>Sunflower</span></a>
+            <a href="#" class="logo">🌻 <span>Sunflower</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Home</a></li>
                 <li><a href="#products">Products</a></li>
+                <li><a href="#admin-panel">Admin Control</a></li>
             </ul>
             <div class="nav-icons">
-                <!-- Admin Page သို့ သွားမည့် ခလုတ် -->
-                <a href="admin.html" class="icon-btn" title="Admin Dashboard"><i class="fa-solid fa-gauge-high"></i></a>
+                <a href="#admin-panel" class="icon-btn" title="Admin Dashboard"><i class="fa-solid fa-gauge-high"></i></a>
                 <button class="icon-btn" title="Cart"><i class="fa-solid fa-bag-shopping"></i></button>
             </div>
         </nav>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-text">
             <h1>Wear the <span>Sunlight</span> Everywhere.</h1>
@@ -119,13 +137,66 @@
         </div>
     </section>
 
+    <!-- Products Display Section -->
     <div class="container" id="products">
         <h2 class="section-title">Trending Now</h2>
         <div class="product-grid" id="homeProductGrid">
-            <!-- Data will load here dynamically -->
+            <!-- Products will load dynamically here -->
         </div>
     </div>
 
+    <!-- 🛠️ ADMIN DASHBOARD PANEL (Web page ထဲမှာတင် တိုက်ရိုက်ပြင်ရန်) -->
+    <section class="admin-section" id="admin-panel">
+        <h2>🛠️ Admin Product Control Panel</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">ဤနေရာမှ ပစ္စည်းအသစ်ထည့်ခြင်း၊ ဖျက်ခြင်းများ လုပ်ဆောင်နိုင်ပါသည်။ (Data များကို Browser ထဲတွင် သိမ်းဆည်းပေးမည်)</p>
+        
+        <div class="admin-grid">
+            <!-- Add Form -->
+            <div>
+                <form id="productForm">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="title" placeholder="ဥပမာ - Sunny Crop Top" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (MMK)</label>
+                        <input type="text" id="price" placeholder="ဥပမာ - 18,500 MMK" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tag (Optional)</label>
+                        <input type="text" id="tag" placeholder="ဥပမာ - New / Best Seller">
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="image" placeholder="ဓာတ်ပုံ လင့်ခ် (URL) ထည့်ရန်" required>
+                    </div>
+                    <button type="submit" class="btn-save">Add Product</button>
+                </form>
+            </div>
+
+            <!-- Manage Table -->
+            <div>
+                <h3 style="margin-bottom: 10px; font-size: 1rem;">Existing Products List</h3>
+                <div style="max-height: 250px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <!-- Rows will load here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script Logic for Dynamic Products & Admin Control -->
     <script>
         const defaultProducts = [
             { id: 1, title: "Sunny Crop Top", price: "18,500 MMK", tag: "New", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" },
@@ -133,14 +204,21 @@
             { id: 3, title: "Yellow Aesthetic Jacket", price: "45,000 MMK", tag: "", image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" }
         ];
 
-        function loadHomeProducts() {
+        function getProducts() {
             const stored = localStorage.getItem('sunflower_products');
-            const products = stored ? JSON.parse(stored) : defaultProducts;
-            
-            const grid = document.getElementById('homeProductGrid');
-            if(!grid) return;
-            grid.innerHTML = '';
+            if (!stored) {
+                localStorage.setItem('sunflower_products', JSON.stringify(defaultProducts));
+                return defaultProducts;
+            }
+            return JSON.parse(stored);
+        }
 
+        function renderAll() {
+            const products = getProducts();
+            
+            // 1. Render Home Products
+            const grid = document.getElementById('homeProductGrid');
+            grid.innerHTML = '';
             products.forEach(p => {
                 grid.innerHTML += `
                     <div class="product-card">
@@ -158,9 +236,50 @@
                     </div>
                 `;
             });
+
+            // 2. Render Admin Table List
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '';
+            products.forEach(p => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><img src="${p.image}" class="thumb"></td>
+                        <td><strong>${p.title}</strong></td>
+                        <td>${p.price}</td>
+                        <td><button class="action-del" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>
+                `;
+            });
         }
 
-        document.addEventListener('DOMContentLoaded', loadHomeProducts);
+        // Add Product Form Handler
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const price = document.getElementById('price').value;
+            const tag = document.getElementById('tag').value;
+            const image = document.getElementById('image').value;
+
+            let products = getProducts();
+            products.push({ id: Date.now(), title, price, tag, image });
+            
+            localStorage.setItem('sunflower_products', JSON.stringify(products));
+            this.reset();
+            renderAll();
+        });
+
+        // Delete Product
+        function deleteProduct(id) {
+            if (confirm("ဒီပစ္စည်းကို ဖျက်မှာ သေချာပါသလား?")) {
+                let products = getProducts();
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('sunflower_products', JSON.stringify(products));
+                renderAll();
+            }
+        }
+
+        // Initial Load
+        renderAll();
     </script>
 </body>
 </html>
