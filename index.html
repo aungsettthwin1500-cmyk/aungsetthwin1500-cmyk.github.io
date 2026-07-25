@@ -1,64 +1,244 @@
-<!-- ================= 1. FLASH SALE COUNTDOWN SECTION ================= -->
-<section style="margin: 50px 8%; background: linear-gradient(135deg, #FFB703, #FB8500); border-radius: 25px; padding: 40px; color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; box-shadow: 0 15px 30px rgba(251, 133, 0, 0.25);">
-    <div>
-        <span style="background: rgba(255,255,255,0.25); padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;">⚡ Weekend Special Sale</span>
-        <h2 style="font-size: 2.2rem; font-weight: 900; margin: 10px 0;">Get 20% Off All Summer Dresses</h2>
-        <p>ယခုအပတ်အတွင်း သီးသန့်ရရှိနိုင်မည့် အထူးလျှော့ဈေးပရိုမိုးရှင်း!</p>
-    </div>
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunflower Clothing - Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFB703;
+            --primary-hover: #FB8500;
+            --bg-light: #FFFDF9;
+            --surface: #FFFFFF;
+            --text-dark: #023047;
+            --text-muted: #6C757D;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --shadow-soft: 0 10px 30px rgba(251, 133, 0, 0.08);
+            --radius-main: 20px;
+        }
 
-    <!-- Countdown Timer -->
-    <div style="display: flex; gap: 15px; text-align: center;">
-        <div style="background: white; color: #023047; padding: 12px 18px; border-radius: 15px; min-width: 70px;">
-            <h3 id="hours" style="font-size: 1.8rem; font-weight: 900;">12</h3>
-            <span style="font-size: 0.75rem; color: #6C757D; font-weight: 700;">HOURS</span>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Header / Navigation */
+        header {
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            margin: 0 5%;
+        }
+
+        nav {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span { color: var(--primary-hover); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            color: var(--primary-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            min-height: 75vh;
+            padding: 40px 8%;
+            gap: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-hover);
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(251, 133, 0, 0.25);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(251, 133, 0, 0.35);
+        }
+
+        .hero-img-box {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img-box img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 40px 8%;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: var(--radius-main);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,183,3,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-hover);
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 850px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 20px;
+            }
+            .hero-text h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">🌻 <span>Sunflower</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="promotion.html">Promotions</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Brighten Your Day With <span>Sunflower Style</span></h1>
+            <p>လန်းဆန်းတောက်ပတဲ့ အဝါရောင်ဖက်ရှင်တွေနဲ့အတူ သင့်ရဲ့ နေ့စဉ်စတိုင်လ်ကို ပိုမိုပေါ်လွင်စေဖို့ Sunflower Local Brand မှ ကြိုဆိုပါတယ်။</p>
+            <a href="products.html" class="cta-btn"><i class="fa-solid fa-bag-shopping"></i> Shop Now</a>
         </div>
-        <div style="background: white; color: #023047; padding: 12px 18px; border-radius: 15px; min-width: 70px;">
-            <h3 id="minutes" style="font-size: 1.8rem; font-weight: 900;">45</h3>
-            <span style="font-size: 0.75rem; color: #6C757D; font-weight: 700;">MINS</span>
+        <div class="hero-img-box">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600" alt="Sunflower Fashion">
         </div>
-        <div style="background: white; color: #023047; padding: 12px 18px; border-radius: 15px; min-width: 70px;">
-            <h3 id="seconds" style="font-size: 1.8rem; font-weight: 900;">30</h3>
-            <span style="font-size: 0.75rem; color: #6C757D; font-weight: 700;">SECS</span>
+    </section>
+
+    <!-- Key Features / Highlights -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-shirt"></i></div>
+            <h3>Premium Quality</h3>
+            <p>အကောင်းမွန်ဆုံး ပိတ်စနှင့် ချုပ်လုပ်မှု</p>
         </div>
-    </div>
-</section>
-
-<!-- Timer Script -->
-<script>
-    // ရိုးရှင်းသော Countdown Animation logic
-    let h = 12, m = 45, s = 30;
-    setInterval(() => {
-        if(s > 0) s--;
-        else { s = 59; if(m > 0) m--; else { m = 59; if(h > 0) h--; } }
-        document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-        document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
-        document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
-    }, 1000);
-</script>
-
-
-<!-- ================= 2. CUSTOMER REVIEWS / LOOKBOOK ================= -->
-<section style="padding: 40px 8%; text-align: center;">
-    <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 10px;">Styled By You 🌻</h2>
-    <p style="color: #6C757D; margin-bottom: 30px;">Sunflower ကို ချစ်ခင်အားပေးကြတဲ့ Customer လေးများရဲ့ Outfit Feedback များ</p>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
-        <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: left; border: 1px solid #FFE3A8;">
-            <div style="color: #FFB703; margin-bottom: 10px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-            <p style="font-size: 0.9rem; color: #4A5568; line-height: 1.5; margin-bottom: 15px;">"အထည်သားက တကယ်အေးပြီး ဝတ်လို့ကောင်းပါတယ်။ ပုသိမ်မြို့ထဲ Delivery လည်း အရမ်းမြန်လို့ သဘောကျပါတယ်!"</p>
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: #023047;">- Su Su (Pathein)</h4>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <h3>Fast Delivery</h3>
+            <p>ပုသိမ်နှင့် အခြားမြို့များသို့ အမြန်ပို့ဆောင်ပေးခြင်း</p>
         </div>
-
-        <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: left; border: 1px solid #FFE3A8;">
-            <div style="color: #FFB703; margin-bottom: 10px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-            <p style="font-size: 0.9rem; color: #4A5568; line-height: 1.5; margin-bottom: 15px;">"Yellow Crop Top လေး ဝယ်ထားတာ ဆိုဒ်ကွက်တိပဲ။ ပုံထဲကအတိုင်း အရောင်စိုစိုလေးနဲ့ အရမ်းလှပါတယ်။"</p>
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: #023047;">- May Zin</h4>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-tags"></i></div>
+            <h3>Best Prices</h3>
+            <p>သင့်တင့်မျှတသော သိုလှောင်ဈေးနှုန်းများ</p>
         </div>
+    </section>
 
-        <div style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: left; border: 1px solid #FFE3A8;">
-            <div style="color: #FFB703; margin-bottom: 10px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-            <p style="font-size: 0.9rem; color: #4A5568; line-height: 1.5; margin-bottom: 15px;">"Packaging လည်း သပ်သပ်ရပ်ရပ်လေးနဲ့ အထည်ချုပ်ရိုးချုပ်သား တော်တော်သပ်ရပ်ပါတယ်။ နောက်လည်း ထပ်မှာဦးမယ်။"</p>
-            <h4 style="font-size: 0.95rem; font-weight: 800; color: #023047;">- Thandar</h4>
-        </div>
-    </div>
-</section>
+    <footer>
+        <p>&copy; 2026 Sunflower Local Brand. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
