@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunflower Clothing Fashion - Contact Us</title>
+    <!-- FontAwesome Icons ဘားအတွက် Links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -15,7 +17,7 @@
         body {
             background-color: #faf9f6;
             color: #333;
-            padding-top: 70px; /* Fixed Navbar ကြောင့် စာသားများ ကွယ်မသွားစေရန် */
+            padding-top: 70px;
         }
 
         /* Fixed Navigation Bar */
@@ -64,14 +66,14 @@
 
         /* Main Contact Section */
         .contact-container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
         .page-title {
             text-align: center;
-            font-size: 28px;
+            font-size: 30px;
             color: #222;
             margin-bottom: 10px;
         }
@@ -85,20 +87,20 @@
 
         .contact-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            border: 1px solid #f0e6cc;
         }
 
         /* Contact Info Column */
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .info-item {
@@ -110,14 +112,21 @@
         .info-icon {
             background-color: #fff8e6;
             color: #e6a100;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .info-item:hover .info-icon {
+            transform: scale(1.1);
+            background-color: #e6a100;
+            color: #fff;
         }
 
         .info-text h3 {
@@ -129,20 +138,53 @@
         .info-text p {
             font-size: 14px;
             color: #666;
-            line-height: 1.5;
+            line-height: 1.6;
+        }
+
+        /* Social Links */
+        .social-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+            margin-top: 10px;
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            color: #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #e6a100;
+            color: white;
+            transform: translateY(-3px);
         }
 
         /* Contact Form Column */
         .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .form-group label {
@@ -154,17 +196,18 @@
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             border-color: #e6a100;
+            box-shadow: 0 0 0 3px rgba(230, 161, 0, 0.15);
         }
 
         .form-group textarea {
@@ -175,18 +218,34 @@
         .btn-submit {
             background-color: #e6a100;
             color: white;
-            padding: 12px;
+            padding: 14px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
             margin-top: 5px;
         }
 
         .btn-submit:hover {
             background-color: #c88c00;
+            transform: translateY(-2px);
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 40px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .map-section iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
         }
 
         /* Footer */
@@ -222,7 +281,7 @@
             <!-- Contact Info -->
             <div class="contact-info">
                 <div class="info-item">
-                    <div class="info-icon">📍</div>
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
                     <div class="info-text">
                         <h3>ဆိုင်လိပ်စာ</h3>
                         <p>အမှတ် (၁၂၃)၊ ဗဟိုလမ်း၊ ကမာရွတ်မြို့နယ်၊ ရန်ကုန်မြို့။</p>
@@ -230,7 +289,7 @@
                 </div>
 
                 <div class="info-item">
-                    <div class="info-icon">📞</div>
+                    <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
                     <div class="info-text">
                         <h3>ဖုန်းနံပါတ်</h3>
                         <p>09-123456789<br>09-987654321</p>
@@ -238,7 +297,7 @@
                 </div>
 
                 <div class="info-item">
-                    <div class="info-icon">✉️</div>
+                    <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
                     <div class="info-text">
                         <h3>အီးမေးလ်</h3>
                         <p>info@sunflowerfashion.com</p>
@@ -246,10 +305,21 @@
                 </div>
 
                 <div class="info-item">
-                    <div class="info-icon">⏰</div>
+                    <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
                     <div class="info-text">
                         <h3>ဆိုင်ဖွင့်ချိန်</h3>
                         <p>တနင်္လာ - တနင်္ဂနွေ (နံနက် ၉:၀၀ မှ ည ၈:၀၀ အထိ)</p>
+                    </div>
+                </div>
+
+                <!-- Social Links Section -->
+                <div>
+                    <div class="social-title">Social Media မှ ဆက်သွယ်ရန်</div>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon" title="Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+                        <a href="#" class="social-icon" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-icon" title="Viber"><i class="fa-brands fa-viber"></i></a>
                     </div>
                 </div>
             </div>
@@ -273,6 +343,11 @@
 
                 <button type="submit" class="btn-submit">သတင်းအချက်အလက် ပို့မည်</button>
             </form>
+        </div>
+
+        <!-- Google Map Section -->
+        <div class="map-section">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.263590214815!2d96.1264426!3d16.8132474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb431525042f%3A0xc34125f16e001880!2sBahosi%20Housing!5e0!3m2!1sen!2smm!4v1700000000000!5m2!1sen!2smm" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </main>
 
