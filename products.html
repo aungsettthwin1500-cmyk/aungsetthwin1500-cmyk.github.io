@@ -3,126 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection - SUNFLOWER</title>
+    <title>အထည်များ - SUNFLOWER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #222222;
-            --accent: #d4af37;
-            --bg-light: #faf8f5;
-            --card-bg: #ffffff;
-            --text-main: #2c2c2c;
-            --border: #eae6df;
+            --primary: #d97706;
+            --bg-body: #f8fafc;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --border-color: #e2e8f0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-main); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Padauk', 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
+            padding: 15px 7%;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .brand-logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--primary); text-decoration: none; }
-        .nav-menu { display: flex; gap: 30px; list-style: none; }
-        .nav-menu a { text-decoration: none; color: var(--text-main); font-size: 14px; font-weight: 500; }
-        .nav-menu a.active { color: var(--accent); }
+        .brand-logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .nav-links { display: flex; gap: 15px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 600; padding: 8px 16px; border-radius: 8px; }
+        .nav-links a.active { background-color: #fef3c7; color: var(--primary); }
 
-        .container { max-width: 1300px; margin: 40px auto; padding: 0 8%; }
-        .page-title { text-align: center; font-size: 28px; font-weight: 300; letter-spacing: 1px; margin-bottom: 40px; text-transform: uppercase; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 30px; font-size: 28px; }
 
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
         .product-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: white;
+            border-radius: 16px;
             padding: 15px;
-            text-align: center;
+            border: 1px solid var(--border-color);
         }
 
-        .product-card img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-        .product-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
-        .product-price { color: var(--accent); font-weight: 600; font-size: 14px; margin-bottom: 15px; }
+        .product-card img { width: 100%; height: 260px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+        .product-title { font-weight: 700; font-size: 16px; }
+        .product-price { color: var(--primary); font-weight: bold; margin: 5px 0 15px; }
 
         .btn-order {
             display: block;
             width: 100%;
-            background: var(--primary);
-            color: #ffffff;
-            border: none;
-            padding: 10px 0;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.3s;
+            background: #25d366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
             text-decoration: none;
+            font-weight: bold;
         }
 
-        .btn-order:hover { background: var(--accent); }
-
-        footer { background-color: var(--primary); color: #888; text-align: center; padding: 30px; font-size: 13px; margin-top: 80px; }
+        footer { text-align: center; padding: 30px; background: white; margin-top: 60px; border-top: 1px solid var(--border-color); color: var(--text-gray); }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="brand-logo">SUNFLOWER</a>
-        <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html" class="active">Collection</a></li>
-            <li><a href="promotion.html">Promotions</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <a href="index.html" class="brand-logo"><i class="fa-solid fa-sun"></i> SUNFLOWER</a>
+        <ul class="nav-links">
+            <li><a href="index.html">ပင်မစာမျက်နှာ</a></li>
+            <li><a href="products.html" class="active">အထည်များ</a></li>
+            <li><a href="promotion.html">ပရိုမိုးရှင်း</a></li>
+            <li><a href="contact.html">ဆက်သွယ်ရန်</a></li>
         </ul>
     </nav>
 
-    <div class="container">
-        <h1 class="page-title">Our Collections</h1>
-
+    <main class="container">
+        <h1 class="page-title">ရရှိနိုင်သော အထည်များ</h1>
         <div class="product-grid">
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600">
-                <div class="product-title">Minimalist Summer Dress</div>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600" alt="Dress">
+                <div class="product-title">Floral Summer Dress</div>
                 <div class="product-price">၂၅,၀၀၀ ကျပ်</div>
-                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order"><i class="fa-brands fa-facebook-messenger"></i> Messenger မှ မှာယူမည်</a>
             </div>
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=600">
-                <div class="product-title">Casual Linen Top</div>
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=600" alt="Crop Top">
+                <div class="product-title">Casual Crop Top</div>
                 <div class="product-price">၁၈,၀၀၀ ကျပ်</div>
-                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order"><i class="fa-brands fa-facebook-messenger"></i> Messenger မှ မှာယူမည်</a>
             </div>
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=600">
+                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?q=80&w=600" alt="Skirt">
                 <div class="product-title">Elegance Long Skirt</div>
                 <div class="product-price">၂၂,၀၀၀ ကျပ်</div>
-                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
-            </div>
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1551163943-3f6a855d1153?q=80&w=600">
-                <div class="product-title">Classic White Shirt</div>
-                <div class="product-price">၂၀,၀၀၀ ကျပ်</div>
-                <a href="https://m.me/sunflower" target="_blank" class="btn-order">Order Now</a>
+                <a href="https://m.me/sunflower" target="_blank" class="btn-order"><i class="fa-brands fa-facebook-messenger"></i> Messenger မှ မှာယူမည်</a>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <p>&copy; 2026 SUNFLOWER CLOTHING. ALL RIGHTS RESERVED.</p>
