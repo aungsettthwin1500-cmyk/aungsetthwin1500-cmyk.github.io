@@ -3,238 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunflower Flower Clothing - Home</title>
+    <title>Sunflower Flower Clothing - NextGen Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-yellow: #FFC107;
-            --dark-yellow: #FFA000;
-            --light-yellow: #FFF8E1;
-            --dark-text: #2C3E50;
-            --white: #FFFFFF;
+            --primary: #FFB703;
+            --primary-hover: #FB8500;
+            --bg-light: #FFFDF9;
+            --surface: #FFFFFF;
+            --text-dark: #023047;
+            --text-muted: #6C757D;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --shadow-soft: 0 10px 30px rgba(251, 133, 0, 0.1);
+            --shadow-hover: 0 20px 40px rgba(251, 133, 0, 0.2);
+            --radius-main: 20px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background-color: #FAFAFA;
-            color: var(--dark-text);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* Glassmorphism Header */
+        header {
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            margin: 0 5%;
+        }
+
         nav {
-            background-color: var(--white);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-yellow);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-hover);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 25px;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--dark-text);
+            color: var(--text-dark);
             font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--dark-yellow);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(255, 248, 225, 0.8), rgba(255, 248, 225, 0.8)), 
-                        url('https://images.unsplash.com/photo-1523381210434-271e8be1f25b?auto=format&fit=crop&w=1000&q=80') center/cover;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            color: #555;
-        }
-
-        .btn {
-            background-color: var(--primary-yellow);
-            color: var(--dark-text);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .btn:hover {
-            background-color: var(--dark-yellow);
-            transform: translateY(-2px);
-        }
-
-        /* Common Container */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .section-title::after {
+        .nav-links a::after {
             content: '';
-            width: 60px;
-            height: 3px;
-            background-color: var(--primary-yellow);
-            display: block;
-            margin: 8px auto 0;
-            border-radius: 2px;
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-hover);
+            transition: width 0.3s;
         }
 
-        /* Product Grid */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-card img {
+        .nav-links a:hover::after, .nav-links a.active::after {
             width: 100%;
-            height: 280px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: var(--surface);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        /* Hero Split Design */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+            align-items: center;
+            padding: 0 8%;
+            gap: 50px;
+            margin-top: -20px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(45deg, #FFB703, #FB8500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(251, 133, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(251, 133, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--text-dark);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-dark);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
             object-fit: cover;
         }
 
-        .product-info {
-            padding: 15px;
-            text-align: center;
+        .floating-card {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .product-title {
+        /* Products Section */
+        .container {
+            padding: 80px 8%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius-main);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .img-box {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .img-box img {
+            transform: scale(1.08);
+        }
+
+        .tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: var(--text-dark);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-details h3 {
             font-size: 1.1rem;
             margin-bottom: 8px;
         }
 
-        .product-price {
-            color: var(--dark-yellow);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-hover);
+        }
+
+        .add-btn {
+            background: var(--bg-light);
+            border: 1px solid #ddd;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover .add-btn {
+            background: var(--primary);
+            border-color: var(--primary);
         }
 
         /* Footer */
         footer {
-            background-color: var(--dark-text);
-            color: var(--white);
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 8% 30px;
+            margin-top: 80px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-bottom {
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header / Nav -->
-    <nav>
-        <div class="logo">🌻 Sunflower</div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="promotion.html">Promotion</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">🌻 <span>Sunflower</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="promotion.html">Promotions</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="icon-btn"><i class="fa-solid fa-bag-shopping"></i></button>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
     <section class="hero">
-        <h1>Brighten Your Style with Sunflower</h1>
-        <p>လန်းဆန်းပြီး ချစ်စရာကောင်းတဲ့ အဝါရောင် ဖက်ရှင်ဒီဇိုင်းသစ်များ</p>
-        <a href="products.html" class="btn">Shop Now</a>
+        <div class="hero-text">
+            <h1>Wear the <span>Sunlight</span> Everywhere You Go.</h1>
+            <p>ခေတ်မီဆန်းသစ်သော အဝါရောင်ဖက်ရှင်ဒီဇိုင်းများဖြင့် သင့်နေ့ရက်များကို ပိုမိုလန်းဆန်း တောက်ပစေဖို့ Sunflower Flower Clothing မှ ကြိုဆိုပါတယ်။</p>
+            <div class="hero-btns">
+                <a href="products.html" class="btn-primary">Shop Collection</a>
+                <a href="promotion.html" class="btn-secondary">View Deals</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Sunflower Fashion">
+            <div class="floating-card">
+                🌟 <strong>New Trend 2026</strong>
+                <p style="font-size: 0.85rem; color: #555;">Summer Yellow Collection</p>
+            </div>
+        </div>
     </section>
 
-    <!-- Featured Products -->
     <div class="container">
-        <h2 class="section-title">New Arrivals</h2>
+        <div class="section-header">
+            <div class="section-title">
+                <h2>Trending Now</h2>
+            </div>
+        </div>
+
         <div class="product-grid">
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" alt="Yellow Dress">
-                <div class="product-info">
-                    <h3 class="product-title">Summer Yellow Dress</h3>
-                    <div class="product-price">25,000 MMK</div>
-                    <a href="#" class="btn">Add to Cart</a>
+                <div class="img-box">
+                    <span class="tag">New</span>
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" alt="Crop Top">
+                </div>
+                <div class="product-details">
+                    <h3>Sunny Crop Top</h3>
+                    <div class="price-row">
+                        <span class="price">18,500 MMK</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </div>
             </div>
+
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" alt="Casual Shirt">
-                <div class="product-info">
-                    <h3 class="product-title">Sunflower Printed Tee</h3>
-                    <div class="product-price">18,000 MMK</div>
-                    <a href="#" class="btn">Add to Cart</a>
+                <div class="img-box">
+                    <span class="tag" style="background: #E74C3C; color: white;">Best Seller</span>
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" alt="Printed Tee">
+                </div>
+                <div class="product-details">
+                    <h3>Sunflower Printed Tee</h3>
+                    <div class="price-row">
+                        <span class="price">16,000 MMK</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </div>
             </div>
+
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" alt="Yellow Top">
-                <div class="product-info">
-                    <h3 class="product-title">Casual Yellow Crop Top</h3>
-                    <div class="product-price">15,000 MMK</div>
-                    <a href="#" class="btn">Add to Cart</a>
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" alt="Jacket">
+                </div>
+                <div class="product-details">
+                    <h3>Yellow Aesthetic Jacket</h3>
+                    <div class="price-row">
+                        <span class="price">45,000 MMK</span>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Sunflower Flower Clothing. All Rights Reserved.</p>
+        <div class="footer-content">
+            <div>
+                <h3>🌻 Sunflower</h3>
+                <p style="margin-top: 10px; color: var(--text-muted);">Brightening your daily outfit with modern yellow aesthetic designs.</p>
+            </div>
+            <div>
+                <h4>Links</h4>
+                <p style="margin-top: 5px;"><a href="products.html" style="color: inherit; text-decoration: none;">Products</a></p>
+                <p style="margin-top: 5px;"><a href="promotion.html" style="color: inherit; text-decoration: none;">Promotions</a></p>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <p style="margin-top: 5px;">Facebook | Instagram</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sunflower Flower Clothing. Designed with passion.</p>
+        </div>
     </footer>
 
 </body>
