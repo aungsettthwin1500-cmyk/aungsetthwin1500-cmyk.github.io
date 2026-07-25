@@ -1,481 +1,83 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunflower Clothing - Products Page</title>
-  
-  <!-- Font Awesome Icons (Icons များ ဖော်ပြရန်) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-  <style>
-    /* Global Reset & Base Styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Pyidaungsu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: #f9f9f6;
-      color: #333;
-    }
-
-    /* ---------------- Navigation Bar ---------------- */
-    .navbar {
-      background-color: #ffffff;
-      height: 70px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 5%;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 22px;
-      font-weight: 800;
-      color: #d35400;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-    }
-
-    .logo-icon {
-      color: #f1c40f;
-      font-size: 24px;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 30px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #444;
-      font-weight: 600;
-      font-size: 15px;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #d35400;
-    }
-
-    .nav-links a.active {
-      background-color: #fff2cc;
-      padding: 6px 16px;
-      border-radius: 20px;
-    }
-
-    .nav-icons {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .icon-btn {
-      background: none;
-      border: none;
-      font-size: 18px;
-      color: #444;
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s ease;
-    }
-
-    .icon-btn:hover {
-      color: #d35400;
-    }
-
-    .cart-badge {
-      position: absolute;
-      top: -6px;
-      right: -8px;
-      background-color: #e67e22;
-      color: #fff;
-      font-size: 10px;
-      font-weight: bold;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ---------------- Main Layout ---------------- */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .page-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    /* Products Grid */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 24px;
-    }
-
-    /* Product Card */
-    .product-card {
-      background-color: #ffffff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    }
-
-    /* Product Image Section */
-    .product-image-container {
-      position: relative;
-      width: 100%;
-      height: 300px;
-      background-color: #f0f0f0;
-    }
-
-    .product-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Badges & Wishlist Button */
-    .badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #ffffff;
-      z-index: 1;
-    }
-
-    .badge.hot { background-color: #ff9f43; }
-    .badge.new { background-color: #ff9f43; }
-    .badge.sale { background-color: #ff9f43; }
-
-    .wishlist-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
-      color: #666;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s, background 0.2s;
-      z-index: 1;
-    }
-
-    .wishlist-btn:hover {
-      color: #e74c3c;
-      background: #ffffff;
-    }
-
-    /* Product Info Section */
-    .product-info {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      justify-content: space-between;
-    }
-
-    .category-name {
-      font-size: 12px;
-      color: #888888;
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .product-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #222222;
-      margin-bottom: 16px;
-      line-height: 1.4;
-    }
-
-    /* Price and Button Layout */
-    .product-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-    }
-
-    .price-container {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .current-price {
-      font-size: 15px;
-      font-weight: 700;
-      color: #d35400;
-    }
-
-    .original-price {
-      font-size: 12px;
-      color: #aaa;
-      text-decoration: line-through;
-    }
-
-    .buy-btn {
-      background-color: #fff2cc;
-      color: #d35400;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: background-color 0.2s ease;
-    }
-
-    .buy-btn:hover {
-      background-color: #ffe599;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Sunflower Clothing</title>
+    <style>
+        /* CSS Same as Index */
+        :root { --primary-yellow: #FFC107; --dark-yellow: #FFA000; --light-yellow: #FFF8E1; --dark-text: #2C3E50; --white: #FFFFFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #FAFAFA; color: var(--dark-text); }
+        nav { background-color: var(--white); display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--dark-yellow); }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--dark-text); font-weight: 600; }
+        .nav-links a.active { color: var(--dark-yellow); }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .section-title { text-align: center; font-size: 2rem; margin-bottom: 30px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 25px; }
+        .product-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .product-card img { width: 100%; height: 260px; object-fit: cover; }
+        .product-info { padding: 15px; text-align: center; }
+        .product-price { color: var(--dark-yellow); font-weight: bold; margin: 8px 0; }
+        .btn { background-color: var(--primary-yellow); color: var(--dark-text); padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; display: inline-block; }
+        footer { background-color: var(--dark-text); color: var(--white); text-align: center; padding: 20px; margin-top: 50px; }
+    </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <a href="#" class="logo">
-      <i class="fas fa-sun logo-icon"></i> SUNFLOWER
-    </a>
-    
-    <ul class="nav-links">
-      <li><a href="#">ပင်မစာမျက်နှာ</a></li>
-      <li><a href="#" class="active">အထည်များ</a></li>
-      <li><a href="#">ပရိုမိုးရှင်း</a></li>
-      <li><a href="#">ဆက်သွယ်ရန်</a></li>
-    </ul>
+    <nav>
+        <div class="logo">🌻 Sunflower</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html" class="active">Products</a></li>
+            <li><a href="promotion.html">Promotion</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
 
-    <div class="nav-icons">
-      <button class="icon-btn"><i class="fas fa-search"></i></button>
-      <button class="icon-btn"><i class="far fa-heart"></i></button>
-      <button class="icon-btn">
-        <i class="fas fa-shopping-bag"></i>
-        <span class="cart-badge">3</span>
-      </button>
+    <div class="container">
+        <h2 class="section-title">Our Clothing Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" alt="Yellow Dress">
+                <div class="product-info">
+                    <h3>Summer Yellow Dress</h3>
+                    <div class="product-price">25,000 MMK</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" alt="Casual Shirt">
+                <div class="product-info">
+                    <h3>Sunflower Printed Tee</h3>
+                    <div class="product-price">18,000 MMK</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" alt="Yellow Top">
+                <div class="product-info">
+                    <h3>Casual Crop Top</h3>
+                    <div class="product-price">15,000 MMK</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" alt="Yellow Jacket">
+                <div class="product-info">
+                    <h3>Yellow Fashion Jacket</h3>
+                    <div class="product-price">42,000 MMK</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
 
-  <!-- Main Content -->
-  <div class="container">
-    <h2 class="page-title">ရရှိနိုင်သော အထည်များ (15 Items)</h2>
-
-    <div class="product-grid">
-
-      <!-- Item 1 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <span class="badge hot">Hot</span>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Floral Summer Dress" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Casual Dress</span>
-            <h3 class="product-title">Floral Summer Yellow Dress</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၂၅,၀၀၀ ကျပ်</span>
-              <span class="original-price">၃၀,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 2 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <span class="badge new">New</span>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Minimalist Cotton Tee" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">T-Shirt</span>
-            <h3 class="product-title">Minimalist Cotton Tee</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၁၅,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 3 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" alt="Classic Stylish Jacket" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Jacket</span>
-            <h3 class="product-title">Classic Stylish Jacket</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၃၅,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 4 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <span class="badge sale">Sale</span>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Casual Black Shirt" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Shirt</span>
-            <h3 class="product-title">Casual Black Shirt</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၁၈,၀၀၀ ကျပ်</span>
-              <span class="original-price">၂၂,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 5 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <span class="badge new">New</span>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80" alt="Winter Blue Coat" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Outerwear</span>
-            <h3 class="product-title">Elegant Blue Winter Coat</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၄၅,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 6 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="A-Line Black Skirt" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Skirt</span>
-            <h3 class="product-title">Classic Black Skirt</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၂၂,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 7 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <span class="badge hot">Hot</span>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80" alt="Red Polka Dot Dress" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Vintage Dress</span>
-            <h3 class="product-title">Red Polka Dot Dress</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၂၈,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item 8 -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <span class="badge sale">Sale</span>
-          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-          <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80" alt="Men Casual Blazer" class="product-img">
-        </div>
-        <div class="product-info">
-          <div>
-            <span class="category-name">Men Wear</span>
-            <h3 class="product-title">Modern Suit Blazer</h3>
-          </div>
-          <div class="product-bottom">
-            <div class="price-container">
-              <span class="current-price">၃၈,၀၀၀ ကျပ်</span>
-              <span class="original-price">၄၅,၀၀၀ ကျပ်</span>
-            </div>
-            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+    <footer>
+        <p>&copy; 2026 Sunflower Flower Clothing.</p>
+    </footer>
 
 </body>
 </html>
