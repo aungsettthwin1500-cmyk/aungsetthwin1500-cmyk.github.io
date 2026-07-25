@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunflower Clothing - Products</title>
+  <title>Sunflower Clothing - Products Page</title>
   
-  <!-- Font Awesome Icons အတွက် (Wishlist & Cart Icon များသုံးနိုင်ရန်) -->
+  <!-- Font Awesome Icons (Icons များ ဖော်ပြရန်) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
-    /* Global Styles */
+    /* Global Reset & Base Styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -19,18 +19,120 @@
 
     body {
       background-color: #f9f9f6;
-      padding: 40px 20px;
+      color: #333;
+    }
+
+    /* ---------------- Navigation Bar ---------------- */
+    .navbar {
+      background-color: #ffffff;
+      height: 70px;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #d35400;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-icon {
+      color: #f1c40f;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #d35400;
+    }
+
+    .nav-links a.active {
+      background-color: #fff2cc;
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #444;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      color: #d35400;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background-color: #e67e22;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
       justify-content: center;
     }
 
-    /* Products Grid Container */
+    /* ---------------- Main Layout ---------------- */
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    /* Products Grid */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 24px;
-      max-width: 1200px;
-      width: 100%;
     }
 
     /* Product Card */
@@ -49,12 +151,12 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     }
 
-    /* Image Section */
+    /* Product Image Section */
     .product-image-container {
       position: relative;
       width: 100%;
-      height: 320px;
-      background-color: #eee;
+      height: 300px;
+      background-color: #f0f0f0;
     }
 
     .product-img {
@@ -70,8 +172,8 @@
       left: 12px;
       padding: 4px 12px;
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       color: #ffffff;
       z-index: 1;
     }
@@ -84,8 +186,8 @@
       position: absolute;
       top: 12px;
       right: 12px;
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.9);
       border: none;
@@ -103,7 +205,7 @@
       background: #ffffff;
     }
 
-    /* Info Section */
+    /* Product Info Section */
     .product-info {
       padding: 16px;
       display: flex;
@@ -116,6 +218,7 @@
       font-size: 12px;
       color: #888888;
       margin-bottom: 4px;
+      display: block;
     }
 
     .product-title {
@@ -140,9 +243,9 @@
     }
 
     .current-price {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      color: #c0392b;
+      color: #d35400;
     }
 
     .original-price {
@@ -155,7 +258,7 @@
       background-color: #fff2cc;
       color: #d35400;
       border: none;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: 600;
@@ -173,93 +276,205 @@
 </head>
 <body>
 
-  <div class="product-grid">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <i class="fas fa-sun logo-icon"></i> SUNFLOWER
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="#">ပင်မစာမျက်နှာ</a></li>
+      <li><a href="#" class="active">အထည်များ</a></li>
+      <li><a href="#">ပရိုမိုးရှင်း</a></li>
+      <li><a href="#">ဆက်သွယ်ရန်</a></li>
+    </ul>
 
-    <!-- Card 1 -->
-    <div class="product-card">
-      <div class="product-image-container">
-        <span class="badge hot">Hot</span>
-        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Floral Summer Dress" class="product-img">
-      </div>
-      <div class="product-info">
-        <div>
-          <span class="category-name">Casual Dress</span>
-          <h3 class="product-title">Floral Summer Yellow Dress</h3>
-        </div>
-        <div class="product-bottom">
-          <div class="price-container">
-            <span class="current-price">၂၅,၀၀၀ ကျပ်</span>
-            <span class="original-price">၃၀,၀၀၀ ကျပ်</span>
-          </div>
-          <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-        </div>
-      </div>
+    <div class="nav-icons">
+      <button class="icon-btn"><i class="fas fa-search"></i></button>
+      <button class="icon-btn"><i class="far fa-heart"></i></button>
+      <button class="icon-btn">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-badge">3</span>
+      </button>
     </div>
+  </nav>
 
-    <!-- Card 2 -->
-    <div class="product-card">
-      <div class="product-image-container">
-        <span class="badge new">New</span>
-        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Minimalist Cotton Tee" class="product-img">
-      </div>
-      <div class="product-info">
-        <div>
-          <span class="category-name">T-Shirt</span>
-          <h3 class="product-title">Minimalist Cotton Tee</h3>
+  <!-- Main Content -->
+  <div class="container">
+    <h2 class="page-title">ရရှိနိုင်သော အထည်များ (15 Items)</h2>
+
+    <div class="product-grid">
+
+      <!-- Item 1 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <span class="badge hot">Hot</span>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Floral Summer Dress" class="product-img">
         </div>
-        <div class="product-bottom">
-          <div class="price-container">
-            <span class="current-price">၁၅,၀၀၀ ကျပ်</span>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Casual Dress</span>
+            <h3 class="product-title">Floral Summer Yellow Dress</h3>
           </div>
-          <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="product-card">
-      <div class="product-image-container">
-        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-        <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" alt="Classic Stylish Jacket" class="product-img">
-      </div>
-      <div class="product-info">
-        <div>
-          <span class="category-name">Jacket</span>
-          <h3 class="product-title">Classic Stylish Jacket</h3>
-        </div>
-        <div class="product-bottom">
-          <div class="price-container">
-            <span class="current-price">၃၅,၀၀၀ ကျပ်</span>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၂၅,၀၀၀ ကျပ်</span>
+              <span class="original-price">၃၀,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
           </div>
-          <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
         </div>
       </div>
-    </div>
 
-    <!-- Card 4 -->
-    <div class="product-card">
-      <div class="product-image-container">
-        <span class="badge sale">Sale</span>
-        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
-        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Casual Black Shirt" class="product-img">
-      </div>
-      <div class="product-info">
-        <div>
-          <span class="category-name">Shirt</span>
-          <h3 class="product-title">Casual Black Shirt</h3>
+      <!-- Item 2 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <span class="badge new">New</span>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Minimalist Cotton Tee" class="product-img">
         </div>
-        <div class="product-bottom">
-          <div class="price-container">
-            <span class="current-price">၁၈,၀၀၀ ကျပ်</span>
-            <span class="original-price">၂၂,၀၀၀ ကျပ်</span>
+        <div class="product-info">
+          <div>
+            <span class="category-name">T-Shirt</span>
+            <h3 class="product-title">Minimalist Cotton Tee</h3>
           </div>
-          <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၁၅,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
         </div>
       </div>
-    </div>
 
+      <!-- Item 3 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" alt="Classic Stylish Jacket" class="product-img">
+        </div>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Jacket</span>
+            <h3 class="product-title">Classic Stylish Jacket</h3>
+          </div>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၃၅,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <span class="badge sale">Sale</span>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="Casual Black Shirt" class="product-img">
+        </div>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Shirt</span>
+            <h3 class="product-title">Casual Black Shirt</h3>
+          </div>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၁၈,၀၀၀ ကျပ်</span>
+              <span class="original-price">၂၂,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <span class="badge new">New</span>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80" alt="Winter Blue Coat" class="product-img">
+        </div>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Outerwear</span>
+            <h3 class="product-title">Elegant Blue Winter Coat</h3>
+          </div>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၄၅,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="A-Line Black Skirt" class="product-img">
+        </div>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Skirt</span>
+            <h3 class="product-title">Classic Black Skirt</h3>
+          </div>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၂၂,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <span class="badge hot">Hot</span>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80" alt="Red Polka Dot Dress" class="product-img">
+        </div>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Vintage Dress</span>
+            <h3 class="product-title">Red Polka Dot Dress</h3>
+          </div>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၂၈,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <span class="badge sale">Sale</span>
+          <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+          <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80" alt="Men Casual Blazer" class="product-img">
+        </div>
+        <div class="product-info">
+          <div>
+            <span class="category-name">Men Wear</span>
+            <h3 class="product-title">Modern Suit Blazer</h3>
+          </div>
+          <div class="product-bottom">
+            <div class="price-container">
+              <span class="current-price">၃၈,၀၀၀ ကျပ်</span>
+              <span class="original-price">၄၅,၀၀၀ ကျပ်</span>
+            </div>
+            <button class="buy-btn"><i class="fas fa-shopping-cart"></i> ဝယ်မည်</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
 </body>
