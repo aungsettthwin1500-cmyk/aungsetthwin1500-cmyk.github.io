@@ -4,35 +4,337 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Sunflower Clothing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #FFB703; --primary-hover: #FB8500; --bg-light: #FFFDF9; --surface: #FFFFFF; --text-dark: #023047; --glass-bg: rgba(255, 255, 255, 0.75); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); }
-        
-        header { position: sticky; top: 15px; z-index: 1000; margin: 0 5%; }
-        nav { background: var(--glass-bg); backdrop-filter: blur(12px); border-radius: 50px; padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); text-decoration: none; }
-        .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; }
-        .nav-links a.active { color: var(--primary-hover); }
+        :root {
+            --primary: #FFB703;
+            --primary-hover: #FB8500;
+            --bg-light: #FFFDF9;
+            --surface: #FFFFFF;
+            --text-dark: #023047;
+            --text-muted: #6C757D;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --shadow-soft: 0 10px 30px rgba(251, 133, 0, 0.08);
+            --radius-main: 20px;
+        }
 
-        .container { max-width: 700px; margin: 50px auto; padding: 0 20px; }
-        .contact-box { background: var(--surface); padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.9rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 14px; border: 1px solid #E2E8F0; border-radius: 12px; outline: none; transition: 0.3s; background: #FAFAFA; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-hover); background: white; }
-        .submit-btn { width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        .submit-btn:hover { opacity: 0.95; transform: translateY(-2px); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-        footer { background: var(--text-dark); color: white; text-align: center; padding: 25px; margin-top: 60px; }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Header / Nav */
+        header {
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            margin: 0 5%;
+        }
+
+        nav {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--primary-hover); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            color: var(--primary-hover);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        /* Grid Layout */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        /* Info Cards Side */
+        .info-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: var(--surface);
+            padding: 24px;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            border: 1px solid rgba(255,183,3,0.2);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .icon-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .info-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .info-text p, .info-text a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-decoration: none;
+        }
+
+        .info-text a:hover {
+            color: var(--primary-hover);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-btn {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Form Side */
+        .form-side {
+            background: var(--surface);
+            padding: 35px;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            outline: none;
+            background: #FAFAFA;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--primary-hover);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(251, 133, 0, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 15px rgba(251, 133, 0, 0.2);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(251, 133, 0, 0.3);
+        }
+
+        /* Map Section */
+        .map-section {
+            background: var(--surface);
+            border-radius: var(--radius-main);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 60px;
+            padding: 10px;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 15px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 60px;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 800;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .faq-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .faq-card h4 {
+            color: var(--primary-hover);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Floating Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #0084FF, #00C6FF);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 132, 255, 0.4);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            z-index: 999;
+            transition: transform 0.3s;
+        }
+
+        .chat-widget:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 850px) {
+            .contact-wrapper, .faq-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <nav>
-            <a href="index.html" class="logo">🌻 Sunflower</a>
+            <a href="index.html" class="logo">🌻 <span>Sunflower</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
@@ -43,29 +345,119 @@
     </header>
 
     <div class="container">
-        <div class="contact-box">
-            <h2 style="font-size: 2rem; margin-bottom: 10px;">Contact Us</h2>
-            <p style="color: #666; margin-bottom: 30px;">စုံစမ်းမေးမြန်းလိုသည်များကို အောက်ပါ Form တွင် ဖြည့်သွင်းပေးပို့နိုင်ပါသည်။</p>
-            <form action="#">
-                <div class="form-group">
-                    <label>အမည်</label>
-                    <input type="text" placeholder="သင့်အမည် ရိုက်ထည့်ပါ">
+        <div class="page-header">
+            <h1>Get In Touch With Us 🌻</h1>
+            <p style="color: var(--text-muted);">အကျ္ီဆိုဒ် မေးမြန်းလိုပါက သို့မဟုတ် အော်ဒါတင်လိုပါက အလွယ်တကူ ဆက်သွယ်နိုင်ပါသည်။</p>
+        </div>
+
+        <div class="contact-wrapper">
+            <!-- Left Side: Info Cards -->
+            <div class="info-side">
+                <div class="info-card">
+                    <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="info-text">
+                        <h3>Our Store Location</h3>
+                        <p>Sunflower Local brand ပင်ရင်း<br>အမှတ်(၁) ထောင်ကုန်းလမ်း၊ ပုသိမ်မြို့။</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>ဖုန်း သို့မဟုတ် အီးမေးလ်</label>
-                    <input type="text" placeholder="၀၉xxxxxxxxx / example@mail.com">
+
+                <div class="info-card">
+                    <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                    <div class="info-text">
+                        <h3>Phone & Hotline</h3>
+                        <p><a href="tel:09421096259">09 - 421096259</a></p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>စာမက်ဆေ့ချ်</label>
-                    <textarea rows="4" placeholder="ဒီမှာ ရေးသားပါ..."></textarea>
+
+                <div class="info-card">
+                    <div class="icon-box"><i class="fa-solid fa-clock"></i></div>
+                    <div class="info-text">
+                        <h3>Opening Hours</h3>
+                        <p>Mon - Sun: 8:00 AM - 8:00 PM</p>
+                    </div>
                 </div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
+
+                <div class="info-card">
+                    <div class="icon-box"><i class="fa-solid fa-hashtag"></i></div>
+                    <div class="info-text">
+                        <h3>Follow Our Socials</h3>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/profile.php?id=61555162567014" target="_blank" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://www.tiktok.com/@sunflwer42" target="_blank" class="social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="form-side">
+                <h2 style="margin-bottom: 20px; font-size: 1.5rem;">Send Us a Message</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label>သင့်အမည်</label>
+                        <input type="text" placeholder="အမည် ရိုက်ထည့်ပါ" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ဖုန်းနံပါတ်</label>
+                        <input type="tel" placeholder="09-xxxxxxxxx" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>မေးမြန်းလိုသည့် အကြောင်းအရာ</label>
+                        <select>
+                            <option>အထည်ဆိုဒ် မေးမြန်းရန်</option>
+                            <option>Order အခြေအနေ စုံစမ်းရန်</option>
+                            <option>အထည် လဲလှယ်ရန်</option>
+                            <option>အခြား အထွေထွေ မေးမြန်းရန်</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>စာမက်ဆေ့ချ်</label>
+                        <textarea rows="4" placeholder="အသေးစိတ် ရေးသားပေးပါ..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Embedded Google Map Section (Pathein, Ayeyarwady Region) -->
+        <div class="map-section">
+            <iframe 
+                class="map-frame" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61184.22557458129!2d94.7000!3d16.7800!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30b8095f9c4642ad%3A0x8681f2f81498425!2sPathein!5e0!3m2!1sen!2smm!4v1700000000000!5m2!1sen!2smm" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <h4><i class="fa-solid fa-circle-question"></i> Delivery ခ ဘယ်လောက်ကျသင့်သလဲ?</h4>
+                    <p>ပုသိမ်မြို့တွင်း မြို့နယ်အလိုက် အိမ်အရောက် ပို့ဆောင်ခ အသက်သာဆုံးနှုန်းထားဖြင့် ပို့ဆောင်ပေးပြီး အခြားနယ်များသို့ ကားဂိတ်အရောက် ပို့ဆောင်ပေးပါတယ်။</p>
+                </div>
+                <div class="faq-card">
+                    <h4><i class="fa-solid fa-circle-question"></i> အထည် ဆိုဒ်မတော်ရင် လဲလို့ရပါသလား?</h4>
+                    <p>ဝယ်ယူပြီး (၃) ရက်အတွင်း မပျက်စီးသေးသော အထည်များကို ဆိုဒ် အခမဲ့ လဲလှယ်ပေးပါသည်။</p>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Floating Live Chat Button -->
+    <a href="https://www.facebook.com/profile.php?id=61555162567014" target="_blank" class="chat-widget">
+        <i class="fa-brands fa-facebook-messenger" style="font-size: 1.3rem;"></i>
+        Chat with Us
+    </a>
+
     <footer>
-        <p>&copy; 2026 Sunflower Flower Clothing.</p>
+        <p>&copy; 2026 Sunflower Local Brand. All Rights Reserved.</p>
     </footer>
 
 </body>
