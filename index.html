@@ -32,15 +32,37 @@
             overflow-x: hidden;
         }
 
-        /* 1. Announcement Bar */
+        /* 1. Scrolling Announcement Bar (Marquee Animation) */
         .announcement-bar {
             background: linear-gradient(90deg, #FB8500, #FFB703);
             color: #023047;
-            text-align: center;
-            padding: 8px 15px;
-            font-size: 0.85rem;
+            padding: 9px 0;
+            font-size: 0.88rem;
             font-weight: 700;
             letter-spacing: 0.3px;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(251, 133, 0, 0.15);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marqueeText 18s linear infinite;
+        }
+
+        .announcement-bar:hover .marquee-content {
+            animation-play-state: paused; /* Mouse တင်ထားလျှင် ခဏရပ်မည် */
+        }
+
+        @keyframes marqueeText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* Header Navigation */
@@ -130,7 +152,7 @@
             background: var(--primary);
         }
 
-        /* Hero Section */
+        /* Hero Section with Floating Banner Animation */
         .hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -218,6 +240,7 @@
             left: -20px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 15px 25px;
             border-radius: 15px;
             box-shadow: var(--shadow-soft);
@@ -251,7 +274,7 @@
         .trust-card h4 { font-size: 0.95rem; font-weight: 700; }
         .trust-card p { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* 3. Category Circle Icons Section */
+        /* 3. Fast Category Filter Icons Section */
         .categories-section { padding: 30px 8%; text-align: center; }
         .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 30px; }
 
@@ -287,7 +310,7 @@
 
         .category-item span { font-size: 0.9rem; font-weight: 700; }
 
-        /* Products Grid */
+        /* Products Grid Section */
         .container { padding: 50px 8%; }
 
         .product-grid {
@@ -432,9 +455,11 @@
 </head>
 <body>
 
-    <!-- 1. Top Announcement Bar -->
+    <!-- 1. Scrolling Announcement Bar -->
     <div class="announcement-bar">
-        ✨ နှစ်သစ်အကြို အထူးပရိုမိုးရှင်း - ငွေကျပ် ၃၀,၀၀၀ ဖိုးဝယ်ယူပါက အိမ်အရောက် Free Delivery!
+        <div class="marquee-content">
+            ✨ နှစ်သစ်အကြို အထူးပရိုမိုးရှင်း - ငွေကျပ် ၃၀,၀၀၀ ဖိုးဝယ်ယူပါက အိမ်အရောက် Free Delivery! &nbsp;&nbsp; | &nbsp;&nbsp; 🎁 Coupon Code: SUNFLOWER20 အသုံးပြုပြီး 20% Discount ရယူလိုက်ပါ။
+        </div>
     </div>
 
     <!-- Header Navigation -->
