@@ -3,98 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - SUNFLOWER</title>
+    <title>ဆက်သွယ်ရန် - SUNFLOWER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #222222;
-            --accent: #d4af37;
-            --bg-light: #faf8f5;
-            --card-bg: #ffffff;
-            --text-main: #2c2c2c;
-            --border: #eae6df;
+            --primary: #d97706;
+            --bg-body: #f8fafc;
+            --text-dark: #0f172a;
+            --text-gray: #64748b;
+            --border-color: #e2e8f0;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-main); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Padauk', 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border);
+            padding: 15px 7%;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .brand-logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--primary); text-decoration: none; }
-        .nav-menu { display: flex; gap: 30px; list-style: none; }
-        .nav-menu a { text-decoration: none; color: var(--text-main); font-size: 14px; font-weight: 500; }
-        .nav-menu a.active { color: var(--accent); }
+        .brand-logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .nav-links { display: flex; gap: 15px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 600; padding: 8px 16px; border-radius: 8px; }
+        .nav-links a.active { background-color: #fef3c7; color: var(--primary); }
 
-        .container { max-width: 1100px; margin: 50px auto; padding: 0 8%; }
-        .page-title { text-align: center; font-size: 28px; font-weight: 300; letter-spacing: 1px; margin-bottom: 40px; text-transform: uppercase; }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 30px; font-size: 28px; }
 
-        .contact-layout {
+        .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
         }
 
         .info-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 35px;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
         }
 
-        .info-card h3 {
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
+        .info-card h3 { margin-bottom: 20px; color: var(--primary); }
+        .info-item { display: flex; gap: 12px; align-items: center; margin-bottom: 15px; }
+        .info-item i { color: var(--primary); font-size: 18px; }
+
+        /* FAQ Styling (မေးလေ့ရှိသော မေးခွန်းများ) */
+        .faq-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
         }
 
-        .info-item {
+        .faq-title { font-size: 22px; margin-bottom: 20px; color: var(--text-dark); text-align: center; }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            color: #555;
-            font-size: 15px;
         }
 
-        .info-item i { color: var(--accent); font-size: 18px; }
-
-        .map-card iframe {
-            width: 100%;
-            height: 320px;
-            border: 1px solid var(--border);
+        .faq-answer {
+            display: none;
+            color: var(--text-gray);
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        footer { background-color: var(--primary); color: #888; text-align: center; padding: 30px; font-size: 13px; margin-top: 80px; }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question { color: var(--primary); }
+
+        footer { text-align: center; padding: 30px; background: white; margin-top: 60px; border-top: 1px solid var(--border-color); color: var(--text-gray); }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="brand-logo">SUNFLOWER</a>
-        <ul class="nav-menu">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Collection</a></li>
-            <li><a href="promotion.html">Promotions</a></li>
-            <li><a href="contact.html" class="active">Contact</a></li>
+        <a href="index.html" class="brand-logo"><i class="fa-solid fa-sun"></i> SUNFLOWER</a>
+        <ul class="nav-links">
+            <li><a href="index.html">ပင်မစာမျက်နှာ</a></li>
+            <li><a href="products.html">အထည်များ</a></li>
+            <li><a href="promotion.html">ပရိုမိုးရှင်း</a></li>
+            <li><a href="contact.html" class="active">ဆက်သွယ်ရန်</a></li>
         </ul>
     </nav>
 
-    <div class="container">
-        <h1 class="page-title">Get In Touch</h1>
+    <main class="container">
+        <h1 class="page-title">ဆက်သွယ်ရန်နှင့် မေးလေ့ရှိသော မေးခွန်းများ</h1>
 
-        <div class="contact-layout">
+        <div class="contact-grid">
             <div class="info-card">
-                <h3>Contact Information</h3>
+                <h3>ဆိုင်လိပ်စာ</h3>
                 <div class="info-item">
                     <i class="fa-solid fa-location-dot"></i>
                     <span>ပုသိမ်မြို့၊ ဧရာဝတီတိုင်းဒေသကြီး။</span>
@@ -104,20 +120,67 @@
                     <span>09-123456789</span>
                 </div>
                 <div class="info-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>contact@sunflowerfashion.com</span>
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Sunflower Clothing Fashion</span>
                 </div>
             </div>
 
-            <div class="map-card">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30568.188219409893!2d94.716667!3d16.783333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30b12752174d1a0d%3A0x867eb32644e542db!2sPathein!5e0!3m2!1sen!2smm!4v1680000000000"></iframe>
+            <div class="info-card">
+                <h3>ပို့ဆောင်ရေးစနစ်</h3>
+                <p style="color: var(--text-gray); margin-bottom: 10px;">• ပုသိမ်မြို့တွင်း အိမ်ရောက်ငွေချေစနစ် ရရှိပါသည်။</p>
+                <p style="color: var(--text-gray);">• နယ်မြို့များအတွက် ငွေလွှဲဝင်ပြီးသည်နှင့် ၁ ရက်မှ ၃ ရက်အတွင်း အမြန်ချောပို့ဖြင့် တိုက်ရိုက် ပို့ဆောင်ပေးပါသည်။</p>
             </div>
         </div>
-    </div>
+
+        <!-- FAQ Accordion Section -->
+        <section class="faq-section">
+            <h2 class="faq-title">မေးလေ့ရှိသော မေးခွန်းများ (FAQ)</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Q. အထည်ဆိုဒ် မတော်ရင် လဲလို့ရပါသလား?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    ဟုတ်ကဲ့ ရပါတယ်။ ပစ္စည်းရောက်ရှိပြီး ၃ ရက်အတွင်း အထည်မပျက်စီးသေးပါက ဆိုဒ်ပြန်လည်လဲလှယ်ပေးပါသည်ခင်ဗျာ။
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Q. ပို့ခ ဘယ်လောက်ကျသင့်ပါသလဲ?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    ပုသိမ်မြို့တွင်း ပို့ခ Free ဖြစ်ပြီး၊ နယ်မြို့များအတွက် သက်ဆိုင်ရာ ကားဂိတ် သို့မဟုတ် ချောပို့ခပေါ်မူတည်၍ ၂,၀၀၀ မှ ၃,၅၀၀ ကျပ်ဝန်းကျင် ရှိပါမည်။
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Q. ငွေပေးချေမှုကို ဘယ်လိုစနစ်တွေနဲ့ လက်ခံပါသလဲ?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    KPay, Wave Money, CB Pay သို့မဟုတ် Cash on Delivery (အိမ်ရောက်ငွေချေ) စနစ်များဖြင့် စိတ်ကြိုက် ပေးချေနိုင်ပါသည်။
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2026 SUNFLOWER CLOTHING. ALL RIGHTS RESERVED.</p>
     </footer>
+
+    <script>
+        // FAQ Toggle Script
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
