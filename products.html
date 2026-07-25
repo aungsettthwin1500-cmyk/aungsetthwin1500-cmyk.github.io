@@ -6,7 +6,18 @@
     <title>Products - Sunflower Clothing</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #FFB703; --primary-hover: #FB8500; --bg-light: #FFFDF9; --surface: #FFFFFF; --text-dark: #023047; --text-muted: #6C757D; --glass-bg: rgba(255, 255, 255, 0.75); --shadow-soft: 0 10px 30px rgba(251, 133, 0, 0.1); --shadow-hover: 0 20px 40px rgba(251, 133, 0, 0.2); }
+        :root { 
+            --primary: #FFB703; 
+            --primary-hover: #FB8500; 
+            --bg-light: #FFFDF9; 
+            --surface: #FFFFFF; 
+            --text-dark: #023047; 
+            --text-muted: #6C757D; 
+            --glass-bg: rgba(255, 255, 255, 0.75); 
+            --shadow-soft: 0 10px 30px rgba(251, 133, 0, 0.1); 
+            --shadow-hover: 0 20px 40px rgba(251, 133, 0, 0.2); 
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-dark); }
         
@@ -21,12 +32,41 @@
         .page-title { text-align: center; margin-bottom: 40px; }
         .page-title h1 { font-size: 2.5rem; font-weight: 900; }
 
-        .filter-tags { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-        .filter-btn { background: var(--surface); border: 1px solid #ddd; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .filter-btn.active, .filter-btn:hover { background: var(--primary); border-color: var(--primary); }
+        /* Filter Buttons Styling */
+        .filter-tags { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .filter-btn { 
+            background: var(--surface); 
+            border: 1px solid #E2E8F0; 
+            padding: 8px 24px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            color: var(--text-dark);
+        }
+        
+        .filter-btn.active, .filter-btn:hover { 
+            background: var(--primary); 
+            border-color: var(--primary); 
+            box-shadow: 0 4px 12px rgba(255, 183, 3, 0.3);
+        }
 
+        /* Product Grid */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
-        .product-card { background: var(--surface); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-soft); transition: 0.3s; }
+        
+        .product-card { 
+            background: var(--surface); 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: var(--shadow-soft); 
+            transition: all 0.4s ease; 
+            display: block;
+        }
+
+        .product-card.hide {
+            display: none;
+        }
+
         .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
         .img-box { height: 280px; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -56,36 +96,41 @@
             <p style="color: var(--text-muted);">စိတ်ကြိုက်ရွေးချယ်နိုင်မည့် အဝါရောင် ဖက်ရှင်ဒီဇိုင်းများ</p>
         </div>
 
+        <!-- Filter Buttons (data-filter Attribute သုံးထားပါသည်) -->
         <div class="filter-tags">
-            <button class="filter-btn active">All Products</button>
-            <button class="filter-btn">Dresses</button>
-            <button class="filter-btn">Tops & Tees</button>
-            <button class="filter-btn">Jackets</button>
+            <button class="filter-btn active" data-filter="all">All Products</button>
+            <button class="filter-btn" data-filter="dresses">Dresses</button>
+            <button class="filter-btn" data-filter="tops">Tops & Tees</button>
+            <button class="filter-btn" data-filter="jackets">Jackets</button>
         </div>
 
+        <!-- Product Grid (data-category Attribute များ ထည့်ထားပါသည်) -->
         <div class="product-grid">
-            <div class="product-card">
+            <div class="product-card" data-category="dresses">
                 <div class="img-box"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80"></div>
                 <div class="product-details">
                     <h3>Summer Yellow Dress</h3>
                     <span class="price">25,000 MMK</span>
                 </div>
             </div>
-            <div class="product-card">
+
+            <div class="product-card" data-category="tops">
                 <div class="img-box"><img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80"></div>
                 <div class="product-details">
                     <h3>Sunny Crop Top</h3>
                     <span class="price">18,500 MMK</span>
                 </div>
             </div>
-            <div class="product-card">
+
+            <div class="product-card" data-category="tops">
                 <div class="img-box"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80"></div>
                 <div class="product-details">
                     <h3>Sunflower Graphic Tee</h3>
                     <span class="price">16,000 MMK</span>
                 </div>
             </div>
-            <div class="product-card">
+
+            <div class="product-card" data-category="jackets">
                 <div class="img-box"><img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80"></div>
                 <div class="product-details">
                     <h3>Fashion Outer Jacket</h3>
@@ -98,6 +143,31 @@
     <footer>
         <p>&copy; 2026 Sunflower Flower Clothing.</p>
     </footer>
+
+    <!-- Filter တတ်နိုင်မည့် JavaScript Code -->
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Active class ပြောင်းရန်
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter ပြုလုပ်ရန်
+                const filterValue = btn.getAttribute('data-filter');
+
+                productCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.classList.remove('hide');
+                    } else {
+                        card.classList.add('hide');
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
