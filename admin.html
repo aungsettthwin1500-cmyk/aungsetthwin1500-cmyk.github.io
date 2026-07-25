@@ -1,1 +1,219 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunflower - Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFB703;
+            --primary-hover: #FB8500;
+            --bg: #F8F9FA;
+            --dark: #023047;
+            --card-bg: #FFFFFF;
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--dark); padding: 30px; }
+
+        .dashboard-container { max-width: 1100px; margin: 0 auto; }
+        
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: var(--card-bg); padding: 20px 30px; border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px;
+        }
+
+        .main-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px; }
+
+        .form-card, .list-card {
+            background: var(--card-bg); padding: 25px; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        h2 { margin-bottom: 20px; font-size: 1.2rem; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 8px; display: inline-block; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
+        
+        .btn {
+            background: var(--primary-hover); color: white; border: none; padding: 12px;
+            border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s;
+        }
+        .btn:hover { background: #e07600; }
+        .btn-cancel { background: #95a5a6; margin-top: 8px; display: none; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        th { background-color: #FFF9E6; color: var(--dark); }
+        
+        .thumb { width: 45px; height: 45px; object-fit: cover; border-radius: 6px; }
+        .action-btns { display: flex; gap: 6px; }
+        .btn-edit { background: #3498db; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-del { background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <header>
+            <h1>🛠️ Sunflower Admin Dashboard</h1>
+            <a href="index.html" style="text-decoration: none; background: #023047; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">
+                <i class="fa-solid fa-globe"></i> View Website
+            </a>
+        </header>
+
+        <div class="main-grid">
+            <!-- Form Card (Add/Edit) -->
+            <div class="form-card">
+                <h2 id="formTitle">Add New Product</h2>
+                <form id="productForm">
+                    <input type="hidden" id="editId">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="title" placeholder="ဥပမာ - Sunny Crop Top" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (MMK)</label>
+                        <input type="text" id="price" placeholder="ဥပမာ - 18,500 MMK" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tag (Optional)</label>
+                        <input type="text" id="tag" placeholder="ဥပမာ - New / Best Seller">
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL / Path</label>
+                        <input type="text" id="image" placeholder="ဓာတ်ပုံလင့်ခ် (URL) ထည့်ရန်" required>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn">Save Product</button>
+                    <button type="button" class="btn btn-cancel" id="cancelBtn" onclick="resetForm()">Cancel Edit</button>
+                </form>
+            </div>
+
+            <!-- List Card -->
+            <div class="list-card">
+                <h2>Manage Products</h2>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <!-- Dynamic Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const defaultProducts = [
+            { id: 1, title: "Sunny Crop Top", price: "18,500 MMK", tag: "New", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" },
+            { id: 2, title: "Sunflower Printed Tee", price: "16,000 MMK", tag: "Best Seller", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" },
+            { id: 3, title: "Yellow Aesthetic Jacket", price: "45,000 MMK", tag: "", image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" }
+        ];
+
+        function getProducts() {
+            const stored = localStorage.getItem('sunflower_products');
+            if (!stored) {
+                localStorage.setItem('sunflower_products', JSON.stringify(defaultProducts));
+                return defaultProducts;
+            }
+            return JSON.parse(stored);
+        }
+
+        function renderAdminTable() {
+            const products = getProducts();
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '';
+
+            products.forEach(p => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><img src="${p.image}" class="thumb"></td>
+                        <td><strong>${p.title}</strong><br><small style="color:#777;">${p.tag || ''}</small></td>
+                        <td>${p.price}</td>
+                        <td class="action-btns">
+                            <button class="btn-edit" onclick="editProduct(${p.id})"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-del" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Form Submit (Add or Update)
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const title = document.getElementById('title').value;
+            const price = document.getElementById('price').value;
+            const tag = document.getElementById('tag').value;
+            const image = document.getElementById('image').value;
+
+            let products = getProducts();
+
+            if (id) {
+                // Update
+                products = products.map(p => p.id == id ? { id: Number(id), title, price, tag, image } : p);
+            } else {
+                // Add New
+                products.push({ id: Date.now(), title, price, tag, image });
+            }
+
+            localStorage.setItem('sunflower_products', JSON.stringify(products));
+            resetForm();
+            renderAdminTable();
+        });
+
+        // Edit Item
+        function editProduct(id) {
+            const products = getProducts();
+            const p = products.find(item => item.id === id);
+            if (p) {
+                document.getElementById('editId').value = p.id;
+                document.getElementById('title').value = p.title;
+                document.getElementById('price').value = p.price;
+                document.getElementById('tag').value = p.tag || '';
+                document.getElementById('image').value = p.image;
+
+                document.getElementById('formTitle').innerText = "Edit Product";
+                document.getElementById('submitBtn').innerText = "Update Product";
+                document.getElementById('cancelBtn').style.display = "block";
+            }
+        }
+
+        // Delete Item
+        function deleteProduct(id) {
+            if (confirm("ဒီပစ္စည်းကို ဖျက်မှာ သေချာပါသလား?")) {
+                let products = getProducts();
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('sunflower_products', JSON.stringify(products));
+                renderAdminTable();
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('productForm').reset();
+            document.getElementById('editId').value = '';
+            document.getElementById('formTitle').innerText = "Add New Product";
+            document.getElementById('submitBtn').innerText = "Save Product";
+            document.getElementById('cancelBtn').style.display = "none";
+        }
+
+        renderAdminTable();
+    </script>
+</body>
+</html>
