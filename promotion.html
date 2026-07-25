@@ -5,71 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ပရိုမိုးရှင်း - SUNFLOWER</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #d97706;
-            --bg-body: #f8fafc;
+            --primary-dark: #d97706;
+            --bg-main: #f8fafc;
+            --surface: #ffffff;
             --text-dark: #0f172a;
-            --text-gray: #64748b;
-            --border-color: #e2e8f0;
+            --text-muted: #64748b;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Padauk', 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text-dark); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Padauk', system-ui, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-dark); line-height: 1.7; }
 
         .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 18px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 7%;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .brand-logo { font-size: 22px; font-weight: 800; color: var(--primary); text-decoration: none; }
-        .nav-links { display: flex; gap: 15px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 600; padding: 8px 16px; border-radius: 8px; }
-        .nav-links a.active { background-color: #fef3c7; color: var(--primary); }
+        .brand-logo { font-size: 24px; font-weight: 800; color: var(--primary-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 8px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 10px 18px; border-radius: var(--radius-md); font-size: 15px; }
+        .nav-links a.active { background-color: #fffbeb; color: var(--primary-dark); }
 
-        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
-        .page-title { text-align: center; margin-bottom: 30px; font-size: 28px; }
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .page-title { text-align: center; font-size: 30px; font-weight: bold; margin-bottom: 40px; }
 
         .promo-card {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid var(--border-color);
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f1f5f9;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .promo-code {
-            background: #fef3c7;
-            color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 8px;
+            background: #fffbeb;
+            color: var(--primary-dark);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
             font-weight: bold;
-            border: 1px dashed var(--primary);
+            border: 1px dashed var(--primary-dark);
+            font-size: 16px;
         }
 
         .btn-copy {
-            background: var(--primary);
+            background: var(--primary-dark);
             color: white;
             border: none;
-            padding: 9px 18px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
             cursor: pointer;
             font-weight: bold;
+            font-size: 14px;
         }
 
-        footer { text-align: center; padding: 30px; background: white; margin-top: 60px; border-top: 1px solid var(--border-color); color: var(--text-gray); }
+        .btn-copy:hover { background: #b45309; }
+
+        footer { background: var(--surface); text-align: center; padding: 35px; margin-top: 80px; border-top: 1px solid #e2e8f0; color: var(--text-muted); }
     </style>
 </head>
 <body>
@@ -89,10 +99,10 @@
 
         <div class="promo-card">
             <div>
-                <h3>၁၀% လျှော့ဈေး ကူပွန်</h3>
-                <p style="color: var(--text-gray); font-size: 14px;">ပထမဆုံးအကြိမ် ဝယ်ယူသူများအတွက်</p>
+                <h3 style="font-size: 18px;">၁၀% လျှော့ဈေး ကူပွန်</h3>
+                <p style="color: var(--text-muted); font-size: 14px;">ပထမဆုံးအကြိမ် ဝယ်ယူသူများအတွက် ရရှိနိုင်ပါသည်</p>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
+            <div style="display: flex; gap: 12px; align-items: center;">
                 <span class="promo-code" id="c1">SUNFLOWER10</span>
                 <button class="btn-copy" onclick="copyCode('c1')">Copy ယူမည်</button>
             </div>
