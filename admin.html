@@ -1,1 +1,309 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sunflower Clothing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFB703;
+            --primary-hover: #FB8500;
+            --bg-light: #FFFDF9;
+            --surface: #FFFFFF;
+            --text-dark: #023047;
+            --text-muted: #6C757D;
+            --shadow-soft: 0 10px 30px rgba(251, 133, 0, 0.1);
+            --radius-main: 15px;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface);
+            padding: 20px 30px;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: var(--text-dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        @media(max-width: 768px) {
+            .admin-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-hover);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Product Management List */
+        .product-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-info img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .action-btns button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+
+        .btn-edit { color: #3498DB; }
+        .btn-delete { color: #E74C3C; }
+    </style>
+</head>
+<body>
+
+    <!-- လုံခြုံရေး Password စစ်ဆေးရန် Script -->
+    <script>
+        let pass = prompt("Admin Password ထည့်ပါ:");
+        if (pass !== "myadmin123") { // လိုအပ်ပါက Password ကို ပြောင်းလဲနိုင်ပါသည်
+            alert("စကားဝှက် မှားယွင်းနေပါသည်။");
+            window.location.href = "index.html";
+        }
+    </script>
+
+    <div class="admin-container">
+        <header>
+            <h1>🌻 Sunflower Admin Dashboard</h1>
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Website သို့ရန်</a>
+        </header>
+
+        <div class="admin-grid">
+            <!-- ဘယ်ဘက်ခြမ်း - ပစ္စည်းအသစ်ထည့်ရန် Form -->
+            <div>
+                <div class="card">
+                    <h2 id="form-title">ပစ္စည်းအသစ် ထည့်ရန်</h2>
+                    <form id="product-form">
+                        <input type="hidden" id="edit-index" value="">
+                        <div class="form-group">
+                            <label>ပစ္စည်းအမည်</label>
+                            <input type="text" id="p-name" required placeholder="ဥပမာ - Sunny Crop Top">
+                        </div>
+                        <div class="form-group">
+                            <label>ဈေးနှုန်း (MMK)</label>
+                            <input type="text" id="p-price" required placeholder="ဥပမာ - 18,500 MMK">
+                        </div>
+                        <div class="form-group">
+                            <label>အမျိုးအစား Tag</label>
+                            <input type="text" id="p-tag" placeholder="ဥပမာ - New / Best Seller">
+                        </div>
+                        <div class="form-group">
+                            <label>ဓာတ်ပုံ တင်ရန် (ကွန်ပျူတာ/ဖုန်းထဲမှ ရွေးရန်)</label>
+                            <input type="file" id="p-image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-submit" id="save-btn">သိမ်းဆည်းမည်</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ညာဘက်ခြမ်း - ရှိပြီးသား Product စာရင်းများ ကိုင်တွယ်ရန် -->
+            <div>
+                <div class="card">
+                    <h2>လက်ရှိ ပစ္စည်းစာရင်းများ</h2>
+                    <div id="admin-product-list">
+                        <!-- Javascript ဖြင့် အလိုအလျောက် ဖြည့်သွင်းမည် -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // မူလ Product စာရင်းအချက်အလက်များ
+        let products = JSON.parse(localStorage.getItem('sunflower_products')) || [
+            { name: "Sunny Crop Top", price: "18,500 MMK", tag: "New", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" },
+            { name: "Sunflower Printed Tee", price: "16,000 MMK", tag: "Best Seller", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" },
+            { name: "Yellow Aesthetic Jacket", price: "45,000 MMK", tag: "Trending", image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" }
+        ];
+
+        const productForm = document.getElementById('product-form');
+        const adminProductList = document.getElementById('admin-product-list');
+        const editIndexInput = document.getElementById('edit-index');
+        const formTitle = document.getElementById('form-title');
+        const saveBtn = document.getElementById('save-btn');
+
+        // Product စာရင်းများကို Screen ပေါ်တင်ပေးသည့် Function
+        function renderAdminProducts() {
+            adminProductList.innerHTML = '';
+            products.forEach((p, index) => {
+                adminProductList.innerHTML += `
+                    <div class="product-list-item">
+                        <div class="product-info">
+                            <img src="${p.image}" alt="${p.name}">
+                            <div>
+                                <strong>${p.name}</strong>
+                                <p style="font-size: 0.8rem; color: #666;">${p.price} | <span style="color:#FB8500;">${p.tag}</span></p>
+                            </div>
+                        </div>
+                        <div class="action-btns">
+                            <button class="btn-edit" onclick="editProduct(${index})"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn-delete" onclick="deleteProduct(${index})"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            // LocalStorage ထဲ သိမ်းဆည်းရန်
+            localStorage.setItem('sunflower_products', JSON.stringify(products));
+        }
+
+        // Form Submit လုပ်သည့်အခါ (အသစ်ထည့်ခြင်း သို့မဟုတ် ပြင်ဆင်ခြင်း)
+        productForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const price = document.getElementById('p-price').value;
+            const tag = document.getElementById('p-tag').value;
+            const imageInput = document.getElementById('p-image');
+            const editIndex = editIndexInput.value;
+
+            // ပုံဖိုင် တင်ထားခြင်း ရှိမရှိ စစ်ဆေးပြီး Base64 သို့ ပြောင်းလဲခြင်း (Local Upload)
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    saveProductData(name, price, tag, event.target.result, editIndex);
+                }
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                // ပုံအသစ်မရွေးခဲ့လျှင် မူလပုံကိုသာ ဆက်သုံးရန် (ပြင်ဆင်သည့်အခါ)
+                let existingImage = editIndex !== "" ? products[editIndex].image : "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80";
+                saveProductData(name, price, tag, existingImage, editIndex);
+            }
+        });
+
+        function saveProductData(name, price, tag, image, editIndex) {
+            if (editIndex === "") {
+                // အသစ်ထည့်ခြင်း
+                products.push({ name, price, tag, image });
+            } else {
+                // ရှိပြီးသားကို ပြင်ဆင်ခြင်း
+                products[editIndex] = { name, price, tag, image };
+                editIndexInput.value = "";
+                formTitle.innerText = "ပစ္စည်းအသစ် ထည့်ရန်";
+                saveBtn.innerText = "သိမ်းဆည်းမည်";
+            }
+            productForm.reset();
+            renderAdminProducts();
+        }
+
+        // Product ပြင်ဆင်ရန် (Edit)
+        window.editProduct = function(index) {
+            const p = products[index];
+            document.getElementById('p-name').value = p.name;
+            document.getElementById('p-price').value = p.price;
+            document.getElementById('p-tag').value = p.tag;
+            editIndexInput.value = index;
+            formTitle.innerText = "ပစ္စည်း အချက်အလက် ပြင်ဆင်ရန်";
+            saveBtn.innerText = "ပြင်ဆည်းမှု သိမ်းမည်";
+        }
+
+        // Product ဖျက်ရန် (Delete)
+        window.deleteProduct = function(index) {
+            if (confirm("ဤပစ္စည်းကို ဖျက်ရန် သေချာပါသလား?")) {
+                products.splice(index, 1);
+                renderAdminProducts();
+            }
+        }
+
+        // စတင်ဖွင့်ချိန် စာရင်းဖော်ပြရန်
+        renderAdminProducts();
+    </script>
+</body>
+</html>
