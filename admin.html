@@ -154,7 +154,6 @@
             });
         }
 
-        // Form Submit (Add or Update)
         document.getElementById('productForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const id = document.getElementById('editId').value;
@@ -166,10 +165,8 @@
             let products = getProducts();
 
             if (id) {
-                // Update
                 products = products.map(p => p.id == id ? { id: Number(id), title, price, tag, image } : p);
             } else {
-                // Add New
                 products.push({ id: Date.now(), title, price, tag, image });
             }
 
@@ -178,7 +175,6 @@
             renderAdminTable();
         });
 
-        // Edit Item
         function editProduct(id) {
             const products = getProducts();
             const p = products.find(item => item.id === id);
@@ -195,7 +191,6 @@
             }
         }
 
-        // Delete Item
         function deleteProduct(id) {
             if (confirm("ဒီပစ္စည်းကို ဖျက်မှာ သေချာပါသလား?")) {
                 let products = getProducts();
