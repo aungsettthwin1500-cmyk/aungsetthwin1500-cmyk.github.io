@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunflower Clothing</title>
+    <title>Sunflower Clothing - NextGen Store</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -19,267 +19,617 @@
             --radius-main: 20px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-        /* Announcement Bar */
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* 1. Announcement Bar */
         .announcement-bar {
             background: linear-gradient(90deg, #FB8500, #FFB703);
-            color: #023047; padding: 9px 0; font-size: 0.88rem; font-weight: 700;
-            overflow: hidden; white-space: nowrap; position: relative;
-        }
-        .marquee-content { display: inline-block; padding-left: 100%; animation: marqueeText 18s linear infinite; }
-        .announcement-bar:hover .marquee-content { animation-play-state: paused; }
-        @keyframes marqueeText {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            color: #023047;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
-        /* Header */
-        header { position: sticky; top: 15px; z-index: 1000; margin: 10px 5% 0; }
+        /* Header Navigation */
+        header {
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            margin: 10px 5% 0;
+        }
+
         nav {
-            background: var(--glass-bg); backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 50px;
-            padding: 12px 30px; display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
         }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .logo span { color: var(--primary-hover); }
-        .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; }
-        
-        .nav-icons { display: flex; gap: 10px; align-items: center; }
-        .icon-btn {
-            background: var(--surface); border: none; width: 40px; height: 40px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; color: var(--text-dark);
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-decoration: none; transition: 0.2s;
-        }
-        .icon-btn:hover { background: var(--primary); transform: scale(1.1); }
 
-        /* Hero */
-        .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; align-items: center; padding: 30px 8% 0; gap: 50px; }
-        .hero-text h1 { font-size: 3.2rem; line-height: 1.2; margin-bottom: 20px; font-weight: 900; }
-        .hero-text h1 span { background: linear-gradient(45deg, #FFB703, #FB8500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-weight: 700; display: inline-block; box-shadow: 0 10px 20px rgba(251, 133, 0, 0.3); }
-        .hero-image img { width: 100%; border-radius: var(--radius-main); box-shadow: var(--shadow-soft); object-fit: cover; }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--primary-hover); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-hover);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: var(--surface);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 75vh;
+            align-items: center;
+            padding: 30px 8% 0;
+            gap: 50px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(45deg, #FFB703, #FB8500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-btns { display: flex; gap: 15px; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(251, 133, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(251, 133, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--text-dark);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-dark);
+            color: white;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: floatBanner 4s ease-in-out infinite;
+        }
+
+        @keyframes floatBanner {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+            object-fit: cover;
+        }
+
+        .floating-card {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* 2. Trust Badges Section */
+        .trust-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 50px 8%;
+            margin-top: 40px;
+        }
+
+        .trust-card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .trust-card i {
+            font-size: 1.8rem;
+            color: var(--primary-hover);
+        }
+
+        .trust-card h4 { font-size: 0.95rem; font-weight: 700; }
+        .trust-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* 3. Category Circle Icons Section */
+        .categories-section { padding: 30px 8%; text-align: center; }
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 30px; }
+
+        .category-grid {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .category-item {
+            text-decoration: none;
+            color: var(--text-dark);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .category-item:hover { transform: translateY(-5px); }
+
+        .category-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            border: 2px solid var(--primary);
+        }
+
+        .category-item span { font-size: 0.9rem; font-weight: 700; }
 
         /* Products Grid */
         .container { padding: 50px 8%; }
-        .section-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 30px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-        .product-card { background: var(--surface); border-radius: var(--radius-main); overflow: hidden; box-shadow: var(--shadow-soft); transition: 0.3s; position: relative; }
-        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); }
-        .img-box { position: relative; height: 300px; overflow: hidden; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .tag { position: absolute; top: 15px; left: 15px; background: var(--primary); color: var(--text-dark); font-size: 0.75rem; font-weight: 800; padding: 5px 12px; border-radius: 20px; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius-main);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .img-box { position: relative; height: 320px; overflow: hidden; }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .img-box img { transform: scale(1.08); }
+
+        .tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: var(--text-dark);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
         .product-details { padding: 20px; }
         .product-details h3 { font-size: 1.1rem; margin-bottom: 8px; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
-        .price { font-size: 1.2rem; font-weight: 800; color: var(--primary-hover); }
-        .add-btn { background: var(--bg-light); border: 1px solid #ddd; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
 
-        /* Admin Panel Modal / Section Styling */
-        .admin-section { background: #FFFFFF; margin: 50px 8%; padding: 40px; border-radius: var(--radius-main); box-shadow: var(--shadow-soft); border: 2px dashed var(--primary); }
-        .admin-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-top: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
-        .btn-save { background: var(--primary-hover); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #eee; font-size: 0.85rem; }
-        th { background: #FFF9E6; color: var(--text-dark); }
-        .thumb { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
-        .action-del { background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price { font-size: 1.25rem; font-weight: 800; color: var(--primary-hover); }
+
+        .add-btn {
+            background: var(--bg-light);
+            border: 1px solid #ddd;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover .add-btn {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* 4. Special Promo Banner Section */
+        .promo-banner {
+            margin: 60px 8%;
+            background: linear-gradient(135deg, #023047, #0A192F);
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(2, 48, 71, 0.25);
+        }
+
+        .promo-content h2 { font-size: 2.2rem; margin-bottom: 10px; color: var(--primary); }
+        .promo-content p { color: #8D99AE; margin-bottom: 20px; }
+
+        /* 5. Customer Reviews Section */
+        .reviews-section { padding: 50px 8%; text-align: center; }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .review-card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: var(--radius-main);
+            box-shadow: var(--shadow-soft);
+            text-align: left;
+        }
+
+        .stars { color: #FFB703; margin-bottom: 12px; }
+        .review-card p { font-size: 0.95rem; color: var(--text-dark); margin-bottom: 15px; line-height: 1.5; }
+        .reviewer-name { font-weight: 700; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 60px 8% 30px;
+            margin-top: 80px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
 
         @media (max-width: 768px) {
             .hero { grid-template-columns: 1fr; }
-            .admin-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .promo-banner { flex-direction: column; text-align: center; gap: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Announcement Bar -->
+    <!-- 1. Top Announcement Bar -->
     <div class="announcement-bar">
-        <div class="marquee-content">
-            ✨ နှစ်သစ်အကြို အထူးပရိုမိုးရှင်း - ငွေကျပ် ၃၀,၀၀၀ ဖိုးဝယ်ယူပါက အိမ်အရောက် Free Delivery! &nbsp;&nbsp; | &nbsp;&nbsp; 🎁 Coupon Code: SUNFLOWER20
-        </div>
+        ✨ နှစ်သစ်အကြို အထူးပရိုမိုးရှင်း - ငွေကျပ် ၃၀,၀၀၀ ဖိုးဝယ်ယူပါက အိမ်အရောက် Free Delivery!
     </div>
 
-    <!-- Header -->
+    <!-- Header Navigation -->
     <header>
         <nav>
-            <a href="#" class="logo">🌻 <span>Sunflower</span></a>
+            <a href="index.html" class="logo">🌻 <span>Sunflower</span></a>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#admin-panel">Admin Control</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="promotion.html">Promotions</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
             <div class="nav-icons">
-                <a href="#admin-panel" class="icon-btn" title="Admin Dashboard"><i class="fa-solid fa-gauge-high"></i></a>
-                <button class="icon-btn" title="Cart"><i class="fa-solid fa-bag-shopping"></i></button>
+                <button class="icon-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="icon-btn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i></button>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Main Hero Section -->
     <section class="hero">
         <div class="hero-text">
-            <h1>Wear the <span>Sunlight</span> Everywhere.</h1>
-            <p>ခေတ်မီဆန်းသစ်သော အဝါရောင်ဖက်ရှင်ဒီဇိုင်းများကို တစ်နေရာတည်းတွင် ရွေးချယ်ဝယ်ယူနိုင်ပါပြီ။</p>
-            <a href="#products" class="btn-primary">Shop Collection</a>
+            <h1>Wear the <span>Sunlight</span> Everywhere You Go.</h1>
+            <p>ခေတ်မီဆန်းသစ်သော အဝါရောင်ဖက်ရှင်ဒီဇိုင်းများဖြင့် သင့်နေ့ရက်များကို ပိုမိုလန်းဆန်း တောက်ပစေဖို့ Sunflower Clothing မှ ကြိုဆိုပါတယ်။</p>
+            <div class="hero-btns">
+                <a href="products.html" class="btn-primary">Shop Collection</a>
+                <a href="promotion.html" class="btn-secondary">View Deals</a>
+            </div>
         </div>
         <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Model">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Sunflower Fashion">
+            <div class="floating-card">
+                🌟 <strong>New Trend Collection</strong>
+                <p style="font-size: 0.85rem; color: #555;">Summer Yellow Collection</p>
+            </div>
         </div>
     </section>
 
-    <!-- Products Display Section -->
-    <div class="container" id="products">
-        <h2 class="section-title">Trending Now</h2>
-        <div class="product-grid" id="homeProductGrid">
-            <!-- Products will load dynamically here -->
-        </div>
-    </div>
-
-    <!-- 🛠️ ADMIN DASHBOARD PANEL (Web page ထဲမှာတင် တိုက်ရိုက်ပြင်ရန်) -->
-    <section class="admin-section" id="admin-panel">
-        <h2>🛠️ Admin Product Control Panel</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">ဤနေရာမှ ပစ္စည်းအသစ်ထည့်ခြင်း၊ ဖျက်ခြင်းများ လုပ်ဆောင်နိုင်ပါသည်။ (Data များကို Browser ထဲတွင် သိမ်းဆည်းပေးမည်)</p>
-        
-        <div class="admin-grid">
-            <!-- Add Form -->
+    <!-- 2. Trust Badges Section -->
+    <section class="trust-section">
+        <div class="trust-card">
+            <i class="fa-solid fa-truck-fast"></i>
             <div>
-                <form id="productForm">
-                    <div class="form-group">
-                        <label>Product Name</label>
-                        <input type="text" id="title" placeholder="ဥပမာ - Sunny Crop Top" required>
+                <h4>Fast Delivery</h4>
+                <p>မြန်ဆန်သော အိမ်အရောက်ပို့စနစ်</p>
+            </div>
+        </div>
+        <div class="trust-card">
+            <i class="fa-solid fa-award"></i>
+            <div>
+                <h4>Premium Quality</h4>
+                <p>၁၀၀% စိတ်ကျေနပ်မှုရရှိစေမည့် အထည်သား</p>
+            </div>
+        </div>
+        <div class="trust-card">
+            <i class="fa-solid fa-rotate-left"></i>
+            <div>
+                <h4>Easy Exchange</h4>
+                <p>ဆိုဒ်မတော်ပါက လွယ်ကူစွာ လဲလှယ်နိုင်ခြင်း</p>
+            </div>
+        </div>
+        <div class="trust-card">
+            <i class="fa-solid fa-headset"></i>
+            <div>
+                <h4>24/7 Support</h4>
+                <p>အမြဲတမ်း လူကြီးမင်းတို့၏ ဝန်ဆောင်မှု</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Fast Category Filter Icons -->
+    <section class="categories-section">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <a href="products.html?cat=tops" class="category-item">
+                <div class="category-img">👚</div>
+                <span>Tops</span>
+            </a>
+            <a href="products.html?cat=dresses" class="category-item">
+                <div class="category-img">👗</div>
+                <span>Dresses</span>
+            </a>
+            <a href="products.html?cat=outerwear" class="category-item">
+                <div class="category-img">🧥</div>
+                <span>Jackets</span>
+            </a>
+            <a href="products.html?cat=accessories" class="category-item">
+                <div class="category-img">👒</div>
+                <span>Accessories</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Trending Products Grid -->
+    <div class="container">
+        <div style="margin-bottom: 30px; text-align: center;">
+            <h2 class="section-title">Trending Now</h2>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="img-box">
+                    <span class="tag">New</span>
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" alt="Crop Top">
+                </div>
+                <div class="product-details">
+                    <h3>Sunny Crop Top</h3>
+                    <div class="price-row">
+                        <span class="price">18,500 MMK</span>
+                        <button class="add-btn" aria-label="Add to cart"><i class="fa-solid fa-plus"></i></button>
                     </div>
-                    <div class="form-group">
-                        <label>Price (MMK)</label>
-                        <input type="text" id="price" placeholder="ဥပမာ - 18,500 MMK" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Tag (Optional)</label>
-                        <input type="text" id="tag" placeholder="ဥပမာ - New / Best Seller">
-                    </div>
-                    <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="text" id="image" placeholder="ဓာတ်ပုံ လင့်ခ် (URL) ထည့်ရန်" required>
-                    </div>
-                    <button type="submit" class="btn-save">Add Product</button>
-                </form>
+                </div>
             </div>
 
-            <!-- Manage Table -->
-            <div>
-                <h3 style="margin-bottom: 10px; font-size: 1rem;">Existing Products List</h3>
-                <div style="max-height: 250px; overflow-y: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Photo</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminTableBody">
-                            <!-- Rows will load here -->
-                        </tbody>
-                    </table>
+            <div class="product-card">
+                <div class="img-box">
+                    <span class="tag" style="background: #E74C3C; color: white;">Best Seller</span>
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" alt="Printed Tee">
+                </div>
+                <div class="product-details">
+                    <h3>Sunflower Printed Tee</h3>
+                    <div class="price-row">
+                        <span class="price">16,000 MMK</span>
+                        <button class="add-btn" aria-label="Add to cart"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" alt="Jacket">
+                </div>
+                <div class="product-details">
+                    <h3>Yellow Aesthetic Jacket</h3>
+                    <div class="price-row">
+                        <span class="price">45,000 MMK</span>
+                        <button class="add-btn" aria-label="Add to cart"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- 4. Limited Offer Promotional Banner Section -->
+    <section class="promo-banner">
+        <div class="promo-content">
+            <h2>Get 20% OFF Your First Purchase!</h2>
+            <p>ပထမဦးဆုံး ဝယ်ယူသူများအတွက် Coupon Code: <strong>SUNFLOWER20</strong> အသုံးပြု၍ အထူးလျှော့ဈေး ရယူပါ။</p>
+        </div>
+        <a href="products.html" class="btn-primary">Claim Discount</a>
     </section>
 
-    <!-- Script Logic for Dynamic Products & Admin Control -->
-    <script>
-        const defaultProducts = [
-            { id: 1, title: "Sunny Crop Top", price: "18,500 MMK", tag: "New", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80" },
-            { id: 2, title: "Sunflower Printed Tee", price: "16,000 MMK", tag: "Best Seller", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" },
-            { id: 3, title: "Yellow Aesthetic Jacket", price: "45,000 MMK", tag: "", image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?auto=format&fit=crop&w=500&q=80" }
-        ];
+    <!-- 5. Customer Reviews Section -->
+    <section class="reviews-section">
+        <h2 class="section-title">Loved by Our Customers</h2>
+        <div class="review-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"အထည်သား အလွန်အေးပြီး ပုံပါအတိုင်း အရောင်လေး လှပါတယ်။ အိမ်အရောက် ပို့ပေးတာလည်း အရမ်းမြန်ပါတယ်။"</p>
+                <div class="reviewer-name">- မမေသူ</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Sunflower Printed Tee လေး ဝယ်ထားတာ ဆိုဒ်ကွက်တိပဲ။ Packaging လေးကအစ သပ်ရပ်လို့ သဘောကျပါတယ်။"</p>
+                <div class="reviewer-name">- မဖြူဖြူ</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"အဝါရောင် Aesthetic ဒီဇိုင်းလှလှလေးတွေ သီးသန့်ရလို့ အကြိုက်တွေ့မိပါတယ်။ Customer service လည်း ကောင်းပါတယ်။"</p>
+                <div class="reviewer-name">- မစိုပြေ</div>
+            </div>
+        </div>
+    </section>
 
-        function getProducts() {
-            const stored = localStorage.getItem('sunflower_products');
-            if (!stored) {
-                localStorage.setItem('sunflower_products', JSON.stringify(defaultProducts));
-                return defaultProducts;
-            }
-            return JSON.parse(stored);
-        }
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>🌻 Sunflower</h3>
+                <p style="margin-top: 10px; color: var(--text-muted);">Brightening your daily outfit with modern yellow aesthetic designs.</p>
+            </div>
+            <div>
+                <h4>Links</h4>
+                <p style="margin-top: 5px;"><a href="products.html" style="color: inherit; text-decoration: none;">Products</a></p>
+                <p style="margin-top: 5px;"><a href="promotion.html" style="color: inherit; text-decoration: none;">Promotions</a></p>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <p style="margin-top: 5px;">Facebook | Instagram</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Sunflower Clothing. Designed with passion.</p>
+        </div>
+    </footer>
 
-        function renderAll() {
-            const products = getProducts();
-            
-            // 1. Render Home Products
-            const grid = document.getElementById('homeProductGrid');
-            grid.innerHTML = '';
-            products.forEach(p => {
-                grid.innerHTML += `
-                    <div class="product-card">
-                        <div class="img-box">
-                            ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
-                            <img src="${p.image}" alt="${p.title}">
-                        </div>
-                        <div class="product-details">
-                            <h3>${p.title}</h3>
-                            <div class="price-row">
-                                <span class="price">${p.price}</span>
-                                <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            // 2. Render Admin Table List
-            const tbody = document.getElementById('adminTableBody');
-            tbody.innerHTML = '';
-            products.forEach(p => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td><img src="${p.image}" class="thumb"></td>
-                        <td><strong>${p.title}</strong></td>
-                        <td>${p.price}</td>
-                        <td><button class="action-del" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button></td>
-                    </tr>
-                `;
-            });
-        }
-
-        // Add Product Form Handler
-        document.getElementById('productForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const title = document.getElementById('title').value;
-            const price = document.getElementById('price').value;
-            const tag = document.getElementById('tag').value;
-            const image = document.getElementById('image').value;
-
-            let products = getProducts();
-            products.push({ id: Date.now(), title, price, tag, image });
-            
-            localStorage.setItem('sunflower_products', JSON.stringify(products));
-            this.reset();
-            renderAll();
-        });
-
-        // Delete Product
-        function deleteProduct(id) {
-            if (confirm("ဒီပစ္စည်းကို ဖျက်မှာ သေချာပါသလား?")) {
-                let products = getProducts();
-                products = products.filter(p => p.id !== id);
-                localStorage.setItem('sunflower_products', JSON.stringify(products));
-                renderAll();
-            }
-        }
-
-        // Initial Load
-        renderAll();
-    </script>
 </body>
 </html>
