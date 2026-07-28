@@ -684,6 +684,41 @@
     transform: scale(1.05);
 }
 </style>
+    <!-- Navbar / Header ထဲတွင် ထည့်ရန် HTML -->
+<div id="authNavArea">
+    <!-- JavaScript မှ အလိုအလျောက် Login / Logout / Admin ခလုတ်များ လာရောက်ပြသပေးပါမည် -->
+</div>
+
+<script>
+    function checkUserRole() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const navArea = document.getElementById('authNavArea');
+
+        if (!navArea) return;
+
+        if (currentUser) {
+            let html = `<span style="margin-right:10px; font-weight:bold;">👤 ${currentUser.username}</span>`;
+            
+            // အကယ်၍ အကောင့်သည် Admin ဖြစ်ပါက Admin Dashboard ခလုတ် ပြပေးမည်
+            if (currentUser.role === 'admin') {
+                html += `<a href="admin.html" style="background:#fb8500; color:white; padding:6px 12px; border-radius:5px; text-decoration:none; font-weight:bold; margin-right:10px;">⚙️ Admin Dashboard</a>`;
+            }
+
+            html += `<button onclick="logoutUser()" style="background:#dc3545; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer;">Logout</button>`;
+            navArea.innerHTML = html;
+        } else {
+            // Login မဝင်ရသေးပါက
+            navArea.innerHTML = `<a href="login.html" style="background:#023047; color:white; padding:6px 12px; border-radius:5px; text-decoration:none; font-weight:bold;">🔑 Login / Register</a>`;
+        }
+    }
+
+    function logoutUser() {
+        localStorage.removeItem('currentUser');
+        window.location.reload();
+    }
+
+    document.addEventListener('DOMContentLoaded', checkUserRole);
+</script>
     
 </body>
 </html>
