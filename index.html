@@ -657,6 +657,33 @@
         }
     }
 </script>
+
+<!-- Floating Admin Button (မျက်နှာပြင်ရဲ့ အောက်ခြေ ညာဘက်ထောင့်တွင် ပေါ်နေမည်) -->
+<a href="admin.html" class="floating-admin-btn" title="Go to Admin Dashboard">
+    ⚙️ Admin
+</a>
+
+<style>
+.floating-admin-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #023047;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: 0.3s;
+}
+.floating-admin-btn:hover {
+    background-color: #fb8500;
+    transform: scale(1.05);
+}
+</style>
     
 </body>
 </html>
