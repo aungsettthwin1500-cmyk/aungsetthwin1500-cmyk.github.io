@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-logout:hover {
+            background-color: #bd2130;
+        }
+        .content-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="container">
+        <div class="header">
+            <h1>🌻 Admin Dashboard</h1>
+            <!-- index.html သို့ ပြန်သွားရန် Logout ခလုတ် -->
+            <a href="index.html" class="btn-logout">Logout / ထွက်မည်</a>
+        </div>
+
+        <div class="content-box">
+            <h3>မင်္ဂလာပါ Admin!</h3>
+            <p style="margin-top: 10px; color: #555;">
+                ဒါကတော့ သင့်ရဲ့ Admin Panel စာမျက်နှာဖြစ်ပါတယ်။ ဒီနေရာမှာ Data များ ပြင်ဆင်ခြင်း၊ ထည့်သွင်းခြင်းနှင့် ဖျက်ထုတ်ခြင်း လုပ်ဆောင်ချက်များကို ထည့်သွင်းရေးသားနိုင်ပါပြီ။
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
