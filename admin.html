@@ -333,5 +333,142 @@
         }
     })();
 </script>
+    <!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Users Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: #f4f6f9; color: #023047; padding: 30px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; }
+        h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .back-btn { text-decoration: none; background: #023047; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+        
+        /* Table Style */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #fff8eb; color: #fb8500; font-weight: bold; }
+        
+        .role-select { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; }
+        .role-admin { background-color: #fff3cd; color: #856404; }
+        .role-user { background-color: #e2e3e5; color: #383d41; }
+        
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+        .badge-admin { background: #fb8500; color: white; }
+        .badge-user { background: #6c757d; color: white; }
+        
+        .btn-delete { background: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 5px; cursor: pointer; }
+        .btn-delete:hover { background: #bd2130; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ Admin Dashboard - User List</h1>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Username / Email</th>
+                    <th>Current Role</th>
+                    <th>Change Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- User စာရင်းများ ဒီမှာ ပေါ်မည် -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 1. Admin ဟုတ်မဟုတ် စစ်ဆေးခြင်း
+        function checkAdminAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.role !== 'admin') {
+                alert('ဤ Page ကို Admin များသာ ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်!');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // 2. User စာရင်းကို Table ထဲ ဆွဲထုတ်ပြခြင်း
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const tbody = document.getElementById('userTableBody');
+            tbody.innerHTML = '';
+
+            if (users.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#888;">Account များ မရှိသေးပါ။</td></tr>`;
+                return;
+            }
+
+            users.forEach((user, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${user.username}</strong></td>
+                    <td>
+                        <span class="badge ${user.role === 'admin' ? 'badge-admin' : 'badge-user'}">
+                            ${user.role.toUpperCase()}
+                        </span>
+                    </td>
+                    <td>
+                        <select class="role-select" onchange="changeRole(${index}, this.value)">
+                            <option value="user" ${user.role === 'user' ? 'selected' : ''}>User</option>
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn-delete" onclick="deleteUser(${index})">
+                            <i class="fa-solid fa-trash"></i> ဖျက်မည်
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 3. Role ပြောင်းပေးသည့် Function
+        function changeRole(index, newRole) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users[index].role = newRole;
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            alert(`${users[index].username} ရဲ့ Role ကို ${newRole.toUpperCase()} သို့ ပြောင်းလဲလိုက်ပါပြီ။`);
+            
+            // လက်ရှိ Login ဝင်ထားသော အကောင့်ဖြစ်ပါက စက်ထဲက Current User ကိုပါ Update လုပ်မည်
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && currentUser.username === users[index].username) {
+                currentUser.role = newRole;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+
+            loadUsers();
+        }
+
+        // 4. Account ဖျက်သည့် Function
+        function deleteUser(index) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            if (confirm(`${users[index].username} ကို ဖျက်ရန် သေချာပါသလား?`)) {
+                users.splice(index, 1);
+                localStorage.setItem('users', JSON.stringify(users));
+                loadUsers();
+            }
+        }
+
+        // Page စတင်ပွင့်ချိန်တွင် အလုပ်လုပ်မည်
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminAuth();
+            loadUsers();
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
