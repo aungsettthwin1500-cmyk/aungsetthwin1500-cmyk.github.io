@@ -452,6 +452,8 @@
                 <button class="icon-btn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i></button>
             </div>
         </nav>
+        <!-- Navbar / Menu ထဲတွင် ထည့်ရန် -->
+<div id="authNavArea"></div>
     </header>
 
     <!-- Main Hero Section -->
@@ -719,6 +721,54 @@
 
     document.addEventListener('DOMContentLoaded', checkUserRole);
 </script>
-    
+    <script>
+    function checkUserRole() {
+        // localStorage ထဲက လက်ရှိ Login ဝင်ထားတဲ့ User အချက်အလက်ကို ယူမည်
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const navArea = document.getElementById('authNavArea');
+
+        if (!navArea) return;
+
+        if (currentUser) {
+            // Login ဝင်ထားပါက User နာမည်နှင့် Logout ခလုတ် ပြမည်
+            let html = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 14px; font-weight: bold; color: #023047;">👤 ${currentUser.username}</span>
+            `;
+            
+            // Role က 'admin' ဖြစ်ပါက Admin Dashboard ခလုတ် ပြမည်
+            if (currentUser.role === 'admin') {
+                html += `
+                    <a href="admin.html" style="background: #fb8500; color: white; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px;">
+                        ⚙️ Admin Dashboard
+                    </a>
+                `;
+            }
+
+            html += `
+                    <button onclick="logoutUser()" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px;">
+                        Logout
+                    </button>
+                </div>
+            `;
+            navArea.innerHTML = html;
+        } else {
+            // Login မဝင်ရသေးပါက Login / Register ခလုတ် ပြမည်
+            navArea.innerHTML = `
+                <a href="login.html" style="background: #023047; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px;">
+                    🔑 Login / Register
+                </a>
+            `;
+        }
+    }
+
+    function logoutUser() {
+        localStorage.removeItem('currentUser'); // Session ဖျက်မည်
+        window.location.reload(); // Page ပြန် refresh လုပ်မည်
+    }
+
+    // စာမျက်နှာ ပွင့်တာနဲ့ တန်းပြီး စစ်ဆေးပေးမည်
+    document.addEventListener('DOMContentLoaded', checkUserRole);
+</script>
 </body>
 </html>
