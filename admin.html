@@ -3,75 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Sunflower</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #f4f6f9;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #333;
-            font-size: 24px;
-        }
-        .btn-logout {
-            background-color: #dc3545;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .btn-logout:hover {
-            background-color: #bd2130;
-        }
-        .content-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; padding: 20px; }
+        .container { max-width: 1000px; margin: 20px auto; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        h1 { color: #333; font-size: 24px; }
+        .btn-logout { background-color: #dc3545; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; }
+        
+        /* Form Styling */
+        .form-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e9ecef; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .btn-add { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
+        
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #FB8500; color: white; }
+        .btn-delete { background-color: #e63946; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="header">
-            <h1>🌻 Admin Dashboard</h1>
-            <!-- index.html သို့ ပြန်သွားရန် Logout ခလုတ် -->
+            <h1>🌻 Sunflower Product Admin Dashboard</h1>
             <a href="index.html" class="btn-logout">Logout / ထွက်မည်</a>
         </div>
 
-        <div class="content-box">
-            <h3>မင်္ဂလာပါ Admin!</h3>
-            <p style="margin-top: 10px; color: #555;">
-                ဒါကတော့ သင့်ရဲ့ Admin Panel စာမျက်နှာဖြစ်ပါတယ်။ ဒီနေရာမှာ Data များ ပြင်ဆင်ခြင်း၊ ထည့်သွင်းခြင်းနှင့် ဖျက်ထုတ်ခြင်း လုပ်ဆောင်ချက်များကို ထည့်သွင်းရေးသားနိုင်ပါပြီ။
-            </p>
+        <!-- ၁။ Product အသစ် ထည့်သွင်းသည့် ဖောင် -->
+        <div class="form-section">
+            <h3>Product အသစ် ထည့်သွင်းရန်</h3>
+            <form id="productForm" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label>Product အမည်</label>
+                    <input type="text" id="pName" placeholder="ဥပမာ - Sunflower Oil" required>
+                </div>
+                <div class="form-group">
+                    <label>စျေးနှုန်း (ကျပ်)</label>
+                    <input type="number" id="pPrice" placeholder="ဥပမာ - 15000" required>
+                </div>
+                <button type="submit" class="btn-add">+ Product သစ် သိမ်းဆည်းမည်</button>
+            </form>
+        </div>
+
+        <!-- ၂။ Product List များကို ပြသသည့် စာရင်း -->
+        <div>
+            <h3>လက်ရှိ Product စာရင်းများ</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>စဉ်</th>
+                        <th>Product အမည်</th>
+                        <th>စျေးနှုန်း</th>
+                        <th>လုပ်ဆောင်ချက်</th>
+                    </tr>
+                </thead>
+                <tbody id="productList">
+                    <!-- JavaScript မှ Data များကို ဒီနေရာမှာ အလိုအလျောက် ဖြည့်ပေးမည် -->
+                </tbody>
+            </table>
         </div>
     </div>
 
+    <!-- Data များကို ထိန်းချုပ်မည့် Script -->
+    <script>
+        // LocalStorage မှ Data များ ယူခြင်း
+        let products = JSON.parse(localStorage.getItem('myProducts')) || [
+            { name: "Sunflower Oil 1L", price: "12000" },
+            { name: "Sunflower Seeds 500g", price: "4500" }
+        ];
+
+        const form = document.getElementById('productForm');
+        const productList = document.getElementById('productList');
+
+        // Table ထဲသို့ Data များ ပြသပေးသည့် Function
+        function renderProducts() {
+            productList.innerHTML = '';
+            products.forEach((p, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${p.name}</td>
+                    <td>${p.price} ကျပ်</td>
+                    <td><button class="btn-delete" onclick="deleteProduct(${index})">ဖျက်မည်</button></td>
+                `;
+                productList.appendChild(row);
+            });
+            // Data များကို Browser LocalStorage ထဲ သိမ်းပေးခြင်း
+            localStorage.setItem('myProducts', JSON.stringify(products));
+        }
+
+        // Product သစ် ထည့်သည့် Event
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('pName').value;
+            const price = document.getElementById('pPrice').value;
+
+            products.push({ name, price });
+            renderProducts();
+
+            form.reset();
+        });
+
+        // Product ဖျက်သည့် Function
+        function deleteProduct(index) {
+            if(confirm('ဒီ Product ကို စာရင်းထဲမှ ဖျက်မှာ သေချာပါသလား?')) {
+                products.splice(index, 1);
+                renderProducts();
+            }
+        }
+
+        // စတင်ချိန်တွင် Product List ကို ဆွဲထုတ်ပြသမည်
+        renderProducts();
+    </script>
 </body>
 </html>
