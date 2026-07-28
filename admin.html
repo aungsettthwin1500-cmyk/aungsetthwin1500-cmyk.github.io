@@ -7,117 +7,200 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f6f9; padding: 20px; }
-        .container { max-width: 1000px; margin: 20px auto; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .container { max-width: 1100px; margin: 20px auto; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
-        h1 { color: #333; font-size: 24px; }
-        .btn-logout { background-color: #dc3545; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; }
         
         /* Form Styling */
         .form-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e9ecef; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
         .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        .btn-add { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
         
+        .btn-submit { background-color: #28a745; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; }
+        .btn-cancel { background-color: #6c757d; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 5px; display: none; }
+        .btn-logout { background-color: #dc3545; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; font-weight: bold; }
+
         /* Table Styling */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: middle; }
         th { background-color: #FB8500; color: white; }
-        .btn-delete { background-color: #e63946; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+        .img-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd; }
+        
+        .btn-edit { background-color: #ffc107; color: #333; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; }
+        .btn-delete { background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="header">
-            <h1>🌻 Sunflower Product Admin Dashboard</h1>
+            <h1>🌻 Sunflower Product Admin Panel</h1>
             <a href="index.html" class="btn-logout">Logout / ထွက်မည်</a>
         </div>
 
-        <!-- ၁။ Product အသစ် ထည့်သွင်းသည့် ဖောင် -->
+        <!-- Product ထည့်ရန် / ပြင်ဆင်ရန် Form -->
         <div class="form-section">
-            <h3>Product အသစ် ထည့်သွင်းရန်</h3>
-            <form id="productForm" style="margin-top: 15px;">
-                <div class="form-group">
-                    <label>Product အမည်</label>
-                    <input type="text" id="pName" placeholder="ဥပမာ - Sunflower Oil" required>
+            <h3 id="formTitle">Product အသစ် ထည့်သွင်းရန်</h3>
+            <form id="productForm">
+                <input type="hidden" id="editIndex" value="-1">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product အမည်</label>
+                        <input type="text" id="pName" placeholder="ဥပမာ - Sunflower Oil" required>
+                    </div>
+                    <div class="form-group">
+                        <label>စျေးနှုန်း (ကျပ်)</label>
+                        <input type="number" id="pPrice" placeholder="ဥပမာ - 15000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Product ဓာတ်ပုံ (Drive မှ ရွေးရန်)</label>
+                        <input type="file" id="pImage" accept="image/*">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>စျေးနှုန်း (ကျပ်)</label>
-                    <input type="number" id="pPrice" placeholder="ဥပမာ - 15000" required>
-                </div>
-                <button type="submit" class="btn-add">+ Product သစ် သိမ်းဆည်းမည်</button>
+
+                <button type="submit" id="saveBtn" class="btn-submit">+ Product သစ် သိမ်းဆည်းမည်</button>
+                <button type="button" id="cancelBtn" class="btn-cancel" onclick="resetForm()">မပြင်တော့ပါ (Cancel)</button>
             </form>
         </div>
 
-        <!-- ၂။ Product List များကို ပြသသည့် စာရင်း -->
+        <!-- Product စာရင်း Table -->
         <div>
             <h3>လက်ရှိ Product စာရင်းများ</h3>
             <table>
                 <thead>
                     <tr>
                         <th>စဉ်</th>
+                        <th>ပုံ</th>
                         <th>Product အမည်</th>
                         <th>စျေးနှုန်း</th>
                         <th>လုပ်ဆောင်ချက်</th>
                     </tr>
                 </thead>
                 <tbody id="productList">
-                    <!-- JavaScript မှ Data များကို ဒီနေရာမှာ အလိုအလျောက် ဖြည့်ပေးမည် -->
+                    <!-- Data များ JavaScript မှ ပေါ်လာမည် -->
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Data များကို ထိန်းချုပ်မည့် Script -->
     <script>
-        // LocalStorage မှ Data များ ယူခြင်း
-        let products = JSON.parse(localStorage.getItem('myProducts')) || [
-            { name: "Sunflower Oil 1L", price: "12000" },
-            { name: "Sunflower Seeds 500g", price: "4500" }
-        ];
+        // Sample Initial Data
+        let products = JSON.parse(localStorage.getItem('myProducts')) || [];
 
         const form = document.getElementById('productForm');
         const productList = document.getElementById('productList');
+        const editIndexInput = document.getElementById('editIndex');
+        const formTitle = document.getElementById('formTitle');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
 
-        // Table ထဲသို့ Data များ ပြသပေးသည့် Function
+        // Table တွင် Data များ ထုတ်ပြပေးသည့် Function
         function renderProducts() {
             productList.innerHTML = '';
+            
+            if (products.length === 0) {
+                productList.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#888;">Product စာရင်း မရှိသေးပါ။ အထက်ပါ Form တွင် ထည့်သွင်းပါ။</td></tr>`;
+                return;
+            }
+
             products.forEach((p, index) => {
                 const row = document.createElement('tr');
+                const imageSrc = p.image || 'https://via.placeholder.com/60?text=No+Img';
+                
                 row.innerHTML = `
                     <td>${index + 1}</td>
-                    <td>${p.name}</td>
-                    <td>${p.price} ကျပ်</td>
-                    <td><button class="btn-delete" onclick="deleteProduct(${index})">ဖျက်မည်</button></td>
+                    <td><img src="${imageSrc}" class="img-preview" alt="product"></td>
+                    <td><strong>${p.name}</strong></td>
+                    <td>${Number(p.price).toLocaleString()} ကျပ်</td>
+                    <td>
+                        <button class="btn-edit" onclick="editProduct(${index})">ပြင်မည်</button>
+                        <button class="btn-delete" onclick="deleteProduct(${index})">ဖျက်မည်</button>
+                    </td>
                 `;
                 productList.appendChild(row);
             });
-            // Data များကို Browser LocalStorage ထဲ သိမ်းပေးခြင်း
+
             localStorage.setItem('myProducts', JSON.stringify(products));
         }
 
-        // Product သစ် ထည့်သည့် Event
-        form.addEventListener('submit', (e) => {
+        // Image ကို Base64 ပြောင်းပေးသည့် Function
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Form Submit (Add သို့မဟုတ် Update)
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const name = document.getElementById('pName').value;
             const price = document.getElementById('pPrice').value;
+            const fileInput = document.getElementById('pImage');
+            const editIndex = parseInt(editIndexInput.value);
 
-            products.push({ name, price });
+            let imageData = "";
+
+            if (fileInput.files.length > 0) {
+                // ပုံအသစ် ရွေးထားပါက Base64 သို့ ပြောင်းမည်
+                imageData = await getBase64(fileInput.files[0]);
+            } else if (editIndex !== -1) {
+                // Edit လုပ်ချိန် ပုံအသစ် မရွေးပါက ပုံဟောင်းအတိုင်း ထားမည်
+                imageData = products[editIndex].image;
+            }
+
+            if (editIndex === -1) {
+                // အသစ်ထည့်ခြင်း
+                products.push({ name, price, image: imageData });
+            } else {
+                // ရှိပြီးသားကို ပြင်ဆင်ခြင်း
+                products[editIndex] = { name, price, image: imageData };
+            }
+
+            resetForm();
             renderProducts();
-
-            form.reset();
         });
 
-        // Product ဖျက်သည့် Function
+        // Edit လုပ်ရန် Form ထဲသို့ Data ပြန်ဖြည့်ပေးခြင်း
+        function editProduct(index) {
+            const p = products[index];
+            document.getElementById('pName').value = p.name;
+            document.getElementById('pPrice').value = p.price;
+            editIndexInput.value = index;
+
+            formTitle.innerText = "Product Data ပြင်ဆင်ရန်";
+            saveBtn.innerText = "✓ ပြင်ဆင်ချက်များကို သိမ်းမည်";
+            saveBtn.style.backgroundColor = "#ffc107";
+            saveBtn.style.color = "#333";
+            cancelBtn.style.display = "block";
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Reset Form
+        function resetForm() {
+            form.reset();
+            editIndexInput.value = "-1";
+            formTitle.innerText = "Product အသစ် ထည့်သွင်းရန်";
+            saveBtn.innerText = "+ Product သစ် သိမ်းဆည်းမည်";
+            saveBtn.style.backgroundColor = "#28a745";
+            saveBtn.style.color = "white";
+            cancelBtn.style.display = "none";
+        }
+
+        // Delete Product
         function deleteProduct(index) {
-            if(confirm('ဒီ Product ကို စာရင်းထဲမှ ဖျက်မှာ သေချာပါသလား?')) {
+            if(confirm(`'${products[index].name}' ကို စာရင်းထဲမှ ဖျက်မှာ သေချာပါသလား?`)) {
                 products.splice(index, 1);
                 renderProducts();
             }
         }
 
-        // စတင်ချိန်တွင် Product List ကို ဆွဲထုတ်ပြသမည်
+        // Initial Load
         renderProducts();
     </script>
 </body>
