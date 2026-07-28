@@ -3,222 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products ‹ Sunflower — WordPress Style</title>
+    <title>Admin Dashboard - Sunflower Clothing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
-        body { background-color: #f0f0f1; color: #2c3338; font-size: 13px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; padding: 20px; }
         
-        .wp-wrap { padding: 20px; max-width: 1400px; margin: auto; }
-        .wp-heading { font-size: 23px; font-weight: 400; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 1200px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
-        /* Form Section */
-        .wp-card { background: #fff; border: 1px solid #c3c4c7; padding: 15px; margin-bottom: 20px; box-shadow: 0 1px 1px rgba(0,0,0,.04); }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 10px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 12px; }
-        .form-group input, .form-group select { width: 100%; padding: 6px 8px; border: 1px solid #8c8f94; border-radius: 4px; font-size: 13px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { font-size: 22px; color: #023047; }
+        .btn-view-site { background-color: #023047; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600; }
+
+        /* Form Card */
+        .form-section { background: #fffdf9; border: 1px solid #ffe3a8; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+        .form-section h3 { margin-bottom: 15px; color: #fb8500; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
         
-        .button-primary { background: #2271b1; border-color: #2271b1; color: #fff; padding: 6px 12px; border-radius: 3px; cursor: pointer; border-style: solid; font-weight: 600; }
-        .button-primary:hover { background: #135e96; }
-        .button-cancel { background: #d63638; border: none; color: white; padding: 6px 12px; border-radius: 3px; cursor: pointer; display: none; }
-
-        /* Filter & Search Bar */
-        .tablenav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .search-box input { padding: 4px 8px; border: 1px solid #8c8f94; border-radius: 4px; }
-
-        /* WooCommerce Table Style */
-        .wp-list-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #c3c4c7; box-shadow: 0 1px 1px rgba(0,0,0,.04); }
-        .wp-list-table th { background: #fff; border-bottom: 1px solid #c3c4c7; padding: 8px; text-align: left; font-weight: 600; color: #2c3338; }
-        .wp-list-table td { padding: 8px; border-bottom: 1px solid #f0f0f1; vertical-align: top; }
-        .wp-list-table tr:hover { background-color: #f6f7f7; }
-
-        /* Product Image & Title Area */
-        .thumb { width: 40px; height: 40px; object-fit: cover; border: 1px solid #dcdcde; border-radius: 2px; }
-        .product-title { font-weight: 600; color: #2271b1; text-decoration: none; font-size: 14px; display: block; }
+        .form-group label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 5px; }
+        .form-group input, .form-group select { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
         
-        /* WooCommerce Hover Row Actions */
-        .row-actions { visibility: hidden; font-size: 11px; padding-top: 4px; color: #a7aaad; }
-        tr:hover .row-actions { visibility: visible; }
-        .row-actions a { color: #2271b1; text-decoration: none; cursor: pointer; }
-        .row-actions a.trash { color: #b32d2e; }
+        .btn-submit { background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        .btn-cancel { background-color: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px; display: none; }
 
-        /* Status & Badges */
-        .instock { color: #008a20; font-weight: 600; }
-        .outstock { color: #d63638; font-weight: 600; }
-        .category-tag { color: #2271b1; }
+        /* Top Nav & Search Bar */
+        .table-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .search-box { width: 250px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; }
+
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; vertical-align: middle; font-size: 14px; }
+        th { background-color: #ffb703; color: #023047; font-weight: bold; }
+        
+        .img-thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; }
+        .badge-cat { background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; text-transform: capitalize; }
+        
+        .btn-edit { background-color: #ffc107; color: #000; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; }
+        .btn-delete { background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="wp-wrap">
-    <div class="wp-heading">
-        <h2>Products List</h2>
-        <a href="index.html" style="font-size: 13px; color: #d63638; text-decoration: none;">← Back to Website</a>
-    </div>
-
-    <!-- Add/Edit Form Card -->
-    <div class="wp-card">
-        <strong id="formTitle">Add New Product</strong>
-        <form id="productForm" style="margin-top: 10px;">
-            <input type="hidden" id="editIndex" value="-1">
-            
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" id="pName" placeholder="Product Name" required>
-                </div>
-                <div class="form-group">
-                    <label>SKU</label>
-                    <input type="text" id="pSKU" placeholder="e.g. ID: 191429">
-                </div>
-                <div class="form-group">
-                    <label>Price (Ks)</label>
-                    <input type="number" id="pPrice" placeholder="Price" required>
-                </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <input type="text" id="pCategory" placeholder="e.g. Construction Material">
-                </div>
-                <div class="form-group">
-                    <label>Stock Status</label>
-                    <select id="pStock">
-                        <option value="In stock">In stock</option>
-                        <option value="Out of stock">Out of stock</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Image</label>
-                    <input type="file" id="pImage" accept="image/*">
-                </div>
-            </div>
-
-            <button type="submit" id="saveBtn" class="button-primary">Save Product</button>
-            <button type="button" id="cancelBtn" class="button-cancel" onclick="resetForm()">Cancel Edit</button>
-        </form>
-    </div>
-
-    <!-- Table Top Nav -->
-    <div class="tablenav">
-        <div>
-            <strong>All (<span id="totalCount">0</span>)</strong>
+    <div class="container">
+        <div class="header">
+            <h1>🌻 Sunflower Clothing — Admin Dashboard</h1>
+            <a href="products.html" class="btn-view-site" target="_blank"><i class="fa-solid fa-store"></i> View Products Page</a>
         </div>
-        <div class="search-box">
-            <input type="text" id="searchBar" onkeyup="filterProducts()" placeholder="Search products...">
-        </div>
-    </div>
 
-    <!-- WooCommerce Style Data Table -->
-    <table class="wp-list-table">
-        <thead>
-            <tr>
-                <th style="width: 50px;">Image</th>
-                <th>Name</th>
-                <th>SKU</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Categories</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="productList">
-            <!-- JavaScript injected rows -->
-        </tbody>
-    </table>
-</div>
-
-<script>
-    // Initial Data List
-    let products = JSON.parse(localStorage.getItem('wpProducts')) || [
-        {
-            name: "Dextone Gasket ကော် ခဲရောင် 50g",
-            sku: "191429",
-            price: "4500",
-            category: "Construction Material, Silicone Sealants",
-            stock: "In stock",
-            date: "2026/06/27",
-            image: ""
-        }
-    ];
-
-    const form = document.getElementById('productForm');
-    const productList = document.getElementById('productList');
-    const editIndexInput = document.getElementById('editIndex');
-
-    function renderProducts(dataToRender = products) {
-        productList.innerHTML = '';
-        document.getElementById('totalCount').innerText = dataToRender.length;
-
-        if (dataToRender.length === 0) {
-            productList.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 20px;">No products found.</td></tr>`;
-            return;
-        }
-
-        dataToRender.forEach((p, index) => {
-            const row = document.createElement('tr');
-            const img = p.image || 'https://via.placeholder.com/40?text=No+Img';
-            const stockClass = p.stock === "In stock" ? "instock" : "outstock";
-
-            row.innerHTML = `
-                <td><img src="${img}" class="thumb"></td>
-                <td>
-                    <a href="#" class="product-title">${p.name}</a>
-                    <!-- WooCommerce Hover Action Buttons -->
-                    <div class="row-actions">
-                        <a onclick="editProduct(${index})">Edit</a> | 
-                        <a class="trash" onclick="deleteProduct(${index})">Trash</a>
+        <!-- Add / Edit Form -->
+        <div class="form-section">
+            <h3 id="formTitle"><i class="fa-solid fa-plus-circle"></i> Product အသစ် ထည့်သွင်းရန်</h3>
+            <form id="productForm">
+                <input type="hidden" id="editIndex" value="-1">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product အမည်</label>
+                        <input type="text" id="pName" placeholder="ဥပမာ - Summer Yellow Dress" required>
                     </div>
-                </td>
-                <td>${p.sku || '-'}</td>
-                <td class="${stockClass}">${p.stock}</td>
-                <td>${p.price ? Number(p.price).toLocaleString() + ' Ks' : '-'}</td>
-                <td class="category-tag">${p.category || '-'}</td>
-                <td>${p.date || '-'}</td>
-            `;
-            productList.appendChild(row);
-        });
+                    <div class="form-group">
+                        <label>Category (အမျိုးအစား)</label>
+                        <select id="pCategory">
+                            <option value="dresses">Dresses</option>
+                            <option value="tops">Tops & Tees</option>
+                            <option value="jackets">Jackets</option>
+                            <option value="pants">Pants & Skirts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>စျေးနှုန်း (MMK)</label>
+                        <input type="text" id="pPrice" placeholder="ဥပမာ - 25,000 MMK" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Product ဓာတ်ပုံ (Drive / Local မှ ရွေးရန်)</label>
+                        <input type="file" id="pImage" accept="image/*">
+                    </div>
+                </div>
 
-        localStorage.setItem('wpProducts', JSON.stringify(products));
-    }
+                <button type="submit" id="saveBtn" class="btn-submit">Save Product</button>
+                <button type="button" id="cancelBtn" class="btn-cancel" onclick="resetForm()">Cancel Edit</button>
+            </form>
+        </div>
 
-    // Image Convert Helper
-    function getBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
+        <!-- Table View -->
+        <div class="table-nav">
+            <h3>Product စာရင်းများ (စုစုပေါင်း: <span id="totalCount">0</span>)</h3>
+            <input type="text" id="searchBar" class="search-box" onkeyup="filterProducts()" placeholder="🔍 ရှာဖွေရန်...">
+        </div>
 
-    // Form Submit
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const editIndex = parseInt(editIndexInput.value);
-        
-        const name = document.getElementById('pName').value;
-        const sku = document.getElementById('pSKU').value;
-        const price = document.getElementById('pPrice').value;
-        const category = document.getElementById('pCategory').value;
-        const stock = document.getElementById('pStock').value;
-        const fileInput = document.getElementById('pImage');
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 60px;">စဉ်</th>
+                    <th style="width: 70px;">ပုံ</th>
+                    <th>Product အမည်</th>
+                    <th>Category</th>
+                    <th>စျေးနှုန်း</th>
+                    <th style="width: 150px;">လုပ်ဆောင်ချက်</th>
+                </tr>
+            </thead>
+            <tbody id="productList">
+                <!-- JavaScript မှ မူလ Product 48 ခုကို Auto ဆွဲထုတ်ပေးပါမည် -->
+            </tbody>
+        </table>
+    </div>
 
-        let imageData = "";
-        if (fileInput.files.length > 0) {
-            imageData = await getBase64(fileInput.files[0]);
-        } else if (editIndex !== -1) {
-            imageData = products[editIndex].image;
+    <script>
+        // products.html ထဲတွင် ပါဝင်သော မူလ Product 48 ခုလုံး၏ Data
+        const initialProducts = [
+            // Dresses (12)
+            { name: "Summer Yellow Mini Dress", category: "dresses", price: "25,000 MMK", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" },
+            { name: "Floral Sun Dress", category: "dresses", price: "28,000 MMK", image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500" },
+            { name: "Casual Yellow Maxi Dress", category: "dresses", price: "32,000 MMK", image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500" },
+            { name: "Elegance Bodycon Dress", category: "dresses", price: "35,000 MMK", image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500" },
+            { name: "Vintage Pattern Dress", category: "dresses", price: "29,000 MMK", image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500" },
+            { name: "Boho Style Beach Dress", category: "dresses", price: "27,000 MMK", image: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=500" },
+            { name: "Yellow Evening Gown", category: "dresses", price: "48,000 MMK", image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500" },
+            { name: "Off-Shoulder Summer Dress", category: "dresses", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=500" },
+            { name: "Cotton Daily Dress", category: "dresses", price: "22,000 MMK", image: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=500" },
+            { name: "Layered Ruffle Dress", category: "dresses", price: "30,000 MMK", image: "https://images.unsplash.com/photo-1495385794356-15071159a960?w=500" },
+            { name: "Sleeve Wrap Dress", category: "dresses", price: "27,500 MMK", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500" },
+            { name: "Pastel Yellow Slip Dress", category: "dresses", price: "24,000 MMK", image: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=500" },
+
+            // Tops & Tees (12)
+            { name: "Sunny Crop Top", category: "tops", price: "18,500 MMK", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" },
+            { name: "Sunflower Graphic Tee", category: "tops", price: "16,000 MMK", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" },
+            { name: "Minimalist Black Tee", category: "tops", price: "15,000 MMK", image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500" },
+            { name: "Yellow Knit Sweater", category: "tops", price: "28,000 MMK", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" },
+            { name: "Casual Denim Top", category: "tops", price: "22,000 MMK", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500" },
+            { name: "Basic White Tee", category: "tops", price: "14,000 MMK", image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=500" },
+            { name: "Oversized Yellow Hoodie", category: "tops", price: "32,000 MMK", image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500" },
+            { name: "Vintage Printed Blouse", category: "tops", price: "21,000 MMK", image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=500" },
+            { name: "Striped Casual Shirt", category: "tops", price: "19,000 MMK", image: "https://images.unsplash.com/photo-1525171254930-643fc658b64e?w=500" },
+            { name: "Cotton Sweatshirt", category: "tops", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" },
+            { name: "Sleeveless Top", category: "tops", price: "16,500 MMK", image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500" },
+            { name: "Long Sleeve Polo", category: "tops", price: "23,000 MMK", image: "https://images.unsplash.com/photo-1534126511673-b6899657816a?w=500" },
+
+            // Jackets (12)
+            { name: "Fashion Outer Jacket", category: "jackets", price: "45,000 MMK", image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=500" },
+            { name: "Yellow Rain Coat", category: "jackets", price: "38,000 MMK", image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?w=500" },
+            { name: "Classic Winter Coat", category: "jackets", price: "55,000 MMK", image: "https://images.unsplash.com/photo-1520975954732-35dd22299614?w=500" },
+            { name: "Leather Biker Jacket", category: "jackets", price: "62,000 MMK", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
+            { name: "Denim Classic Jacket", category: "jackets", price: "42,000 MMK", image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=500" },
+            { name: "Casual Blazer", category: "jackets", price: "49,000 MMK", image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" },
+            { name: "Windbreaker Jacket", category: "jackets", price: "36,000 MMK", image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500" },
+            { name: "Bomber Yellow Jacket", category: "jackets", price: "40,000 MMK", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" },
+            { name: "Fleece Warm Cardigan", category: "jackets", price: "34,000 MMK", image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500" },
+            { name: "Overcoat Trench", category: "jackets", price: "58,000 MMK", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500" },
+            { name: "Cropped Outer Wear", category: "jackets", price: "37,000 MMK", image: "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=500" },
+            { name: "Sporty Track Jacket", category: "jackets", price: "35,000 MMK", image: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=500" },
+
+            // Pants & Skirts (12)
+            { name: "Classic Blue Jeans", category: "pants", price: "28,000 MMK", image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" },
+            { name: "Yellow Casual Trouser", category: "pants", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500" },
+            { name: "Wide Leg Pants", category: "pants", price: "25,000 MMK", image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=500" },
+            { name: "Pleated Yellow Skirt", category: "pants", price: "22,000 MMK", image: "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?w=500" },
+            { name: "Denim Mini Skirt", category: "pants", price: "20,000 MMK", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500" },
+            { name: "Comfy Sweatpants", category: "pants", price: "23,000 MMK", image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500" },
+            { name: "High Waist Trouser", category: "pants", price: "27,000 MMK", image: "https://images.unsplash.com/photo-1551854838-212c50b4c184?w=500" },
+            { name: "Floral Long Skirt", category: "pants", price: "24,000 MMK", image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500" },
+            { name: "Cargo Utility Pants", category: "pants", price: "30,000 MMK", image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500" },
+            { name: "Casual Short Pants", category: "pants", price: "18,000 MMK", image: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=500" },
+            { name: "Slim Fit Chinos", category: "pants", price: "29,000 MMK", image: "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?w=500" },
+            { name: "Linen Summer Pants", category: "pants", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1560243563-062bfc001d68?w=500" }
+        ];
+
+        // LocalStorage မှ မလိုသေးလျှင် မူလ 48 ခုကို ယူမည်
+        let products = JSON.parse(localStorage.getItem('sunflowerProducts')) || initialProducts;
+
+        const productList = document.getElementById('productList');
+        const form = document.getElementById('productForm');
+        const editIndexInput = document.getElementById('editIndex');
+
+        // Table တွင် Data ပြသခြင်း
+        function renderProducts(dataToDisplay = products) {
+            productList.innerHTML = '';
+            document.getElementById('totalCount').innerText = dataToDisplay.length;
+
+            dataToDisplay.forEach((p, index) => {
+                const row = document.createElement('tr');
+                const img = p.image || 'https://via.placeholder.com/50?text=No+Img';
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><img src="${img}" class="img-thumb"></td>
+                    <td><strong>${p.name}</strong></td>
+                    <td><span class="badge-cat">${p.category}</span></td>
+                    <td style="color:#fb8500; font-weight:bold;">${p.price}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editProduct(${index})">ပြင်မည်</button>
+                        <button class="btn-delete" onclick="deleteProduct(${index})">ဖျက်မည်</button>
+                    </td>
+                `;
+                productList.appendChild(row);
+            });
+
+            localStorage.setItem('sunflowerProducts', JSON.stringify(products));
         }
 
-        const currentDate = new Date().toISOString().split('T')[0];
-
-        const productData = { name, sku, price, category, stock, date: currentDate, image: imageData };
-
-        if (editIndex === -1) {
-            products.unshift(productData); // Add to top
-        } else {
-            products[editIndex] = productData;
+        // Image Base64 Convert
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
         }
 
-        resetForm();
+        // Add or Update
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editIndex = parseInt(editIndexInput.value);
+
+            const name = document.getElementById('pName').value;
+            const category = document.getElementById('pCategory').value;
+            const price = document.getElementById('pPrice').value;
+            const fileInput = document.getElementById('pImage');
+
+            let imageData = "";
+            if (fileInput.files.length > 0) {
+                imageData = await getBase64(fileInput.files[0]);
+            } else if (editIndex !== -1) {
+                imageData = products[editIndex].image;
+            } else {
+                imageData = 'https://via.placeholder.com/50?text=No+Img';
+            }
+
+            const item = { name, category, price, image: imageData };
+
+            if (editIndex === -1) {
+                products.unshift(item); // အသစ်ကို အပေါ်ဆုံးထည့်မည်
+            } else {
+                products[editIndex] = item;
+            }
+
+            resetForm();
+            renderProducts();
+        });
+
+        // Edit Mode
+        function editProduct(index) {
+            const p = products[index];
+            document.getElementById('pName').value = p.name;
+            document.getElementById('pCategory').value = p.category;
+            document.getElementById('pPrice').value = p.price;
+            editIndexInput.value = index;
+
+            document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Product ပြင်ဆင်ရန်';
+            document.getElementById('saveBtn').innerText = "Update Product";
+            document.getElementById('cancelBtn').style.display = "inline-block";
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Reset Form
+        function resetForm() {
+            form.reset();
+            editIndexInput.value = "-1";
+            document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Product အသစ် ထည့်သွင်းရန်';
+            document.getElementById('saveBtn').innerText = "Save Product";
+            document.getElementById('cancelBtn').style.display = "none";
+        }
+
+        // Delete
+        function deleteProduct(index) {
+            if (confirm(`'${products[index].name}' ကို စာရင်းထဲမှ ဖျက်မှာ သေချာပါသလား?`)) {
+                products.splice(index, 1);
+                renderProducts();
+            }
+        }
+
+        // Search Filter
+        function filterProducts() {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.category.toLowerCase().includes(query) ||
+                p.price.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        // Initial Load
         renderProducts();
     </script>
 </body>
