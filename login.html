@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register - Sunflower Store</title>
+    <style>
+        * { box-sizing: border-box; font-family: sans-serif; }
+        body { background: #f4f6f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .auth-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 340px; }
+        .auth-card h2 { text-align: center; color: #023047; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        .btn-submit { width: 100%; padding: 10px; background: #fb8500; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .toggle-btn { text-align: center; margin-top: 15px; font-size: 13px; color: #023047; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
 
+<div class="auth-card">
+    <h2 id="formTitle">Login ဝင်ရန်</h2>
+    <form id="authForm">
+        <div class="form-group">
+            <label>Username / Email</label>
+            <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" required>
+        </div>
+        <button type="submit" id="submitBtn" class="btn-submit">Sign In</button>
+    </form>
+    <div class="toggle-btn" id="toggleAuth" onclick="toggleMode()">Account မရှိသေးပါက Sign Up ပြုလုပ်ရန်</div>
+</div>
+
+<script>
+    let isSignUp = false;
+
+    // စတင်ချိန်တွင် Master Admin Account မရှိသေးပါက အလိုအလျောက် သတ်မှတ်ပေးထားမည်
+    function initDefaultAdmin() {
+        let users = JSON.parse(localStorage.getItem('sunflowerUsers')) || [];
+        const hasAdmin = users.some(u => u.role === 'admin');
+        
+        if (!hasAdmin) {
+            // မူလ Admin အကောင့် (Username: admin , Pass: admin123)
+            users.push({ username: 'admin', password: 'admin123', role: 'admin' });
+            localStorage.setItem('sunflowerUsers', JSON.stringify(users));
+        }
+    }
+
+    function toggleMode() {
+        isSignUp = !isSignUp;
+        document.getElementById('formTitle').innerText = isSignUp ? "Account အသစ်ဖွင့်ရန်" : "Login ဝင်ရန်";
+        document.getElementById('submitBtn').innerText = isSignUp ? "Sign Up" : "Sign In";
+        document.getElementById('toggleAuth').innerText = isSignUp ? "Account ရှိပြီးသားဆိုပါက Login ဝင်ရန်" : "Account မရှိသေးပါက Sign Up ပြုလုပ်ရန်";
+    }
+
+    document.getElementById('authForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const userVal = document.getElementById('username').value.trim();
+        const passVal = document.getElementById('password').value.trim();
+
+        let users = JSON.parse(localStorage.getItem('sunflowerUsers')) || [];
+
+        if (isSignUp) {
+            // Sign Up ပြုလုပ်ခြင်း
+            const userExists = users.some(u => u.username === userVal);
+            if (userExists) {
+                alert("ဒီ Username နဲ့ Account ရှိနှင့်ပြီးသား ဖြစ်ပါသည်။");
+                return;
+            }
+
+            // အကောင့်သစ်များကို 'user' role အဖြစ် သတ်မှတ်မည်
+            const newUser = { username: userVal, password: passVal, role: 'user' };
+            users.push(newUser);
+            localStorage.setItem('sunflowerUsers', JSON.stringify(users));
+
+            // Current User Session သိမ်းမည်
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            alert("Account ဖွင့်လှစ်ခြင်း အောင်မြင်ပါသည်။");
+            window.location.href = "index.html";
+
+        } else {
+            // Login ဝင်ခြင်း
+            const validUser = users.find(u => u.username === userVal && u.password === passVal);
+            if (validUser) {
+                localStorage.setItem('currentUser', JSON.stringify(validUser));
+                alert(`မင်္ဂလာပါ ${validUser.username}၊ Login အောင်မြင်ပါသည်။`);
+                window.location.href = "index.html";
+            } else {
+                alert("Username သို့မဟုတ် Password မှားယွင်းနေပါသည်။");
+            }
+        }
+    });
+
+    initDefaultAdmin();
+</script>
+
+</body>
+</html>
