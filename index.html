@@ -106,7 +106,7 @@
 
         .nav-icons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
         }
 
@@ -224,7 +224,7 @@
             border: 1px solid rgba(255,255,255,0.5);
         }
 
-        /* 2. Trust Badges Section */
+        /* Trust Badges Section */
         .trust-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -251,7 +251,7 @@
         .trust-card h4 { font-size: 0.95rem; font-weight: 700; }
         .trust-card p { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* 3. Category Circle Icons Section */
+        /* Category Circle Icons Section */
         .categories-section { padding: 30px 8%; text-align: center; }
         .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 30px; }
 
@@ -361,7 +361,7 @@
             border-color: var(--primary);
         }
 
-        /* 4. Special Promo Banner Section */
+        /* Promo Banner Section */
         .promo-banner {
             margin: 60px 8%;
             background: linear-gradient(135deg, #023047, #0A192F);
@@ -377,7 +377,7 @@
         .promo-content h2 { font-size: 2.2rem; margin-bottom: 10px; color: var(--primary); }
         .promo-content p { color: #8D99AE; margin-bottom: 20px; }
 
-        /* 5. Customer Reviews Section */
+        /* Customer Reviews Section */
         .reviews-section { padding: 50px 8%; text-align: center; }
 
         .review-grid {
@@ -450,10 +450,11 @@
             <div class="nav-icons">
                 <button class="icon-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <button class="icon-btn" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i></button>
+                
+                <!-- ခြင်းတောင်းဘေးတွင် လာရောက်ပေါ်မည့် Login / Auth Area -->
+                <div id="authNavArea" style="margin-left: 5px;"></div>
             </div>
         </nav>
-        <!-- Navbar / Menu ထဲတွင် ထည့်ရန် -->
-<div id="authNavArea"></div>
     </header>
 
     <!-- Main Hero Section -->
@@ -633,142 +634,52 @@
         </div>
     </footer>
 
-    <!-- Admin Modal Popup (Normally Hidden) -->
-<div id="adminModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
-    <div style="background:white; padding:30px; border-radius:15px; width:350px;">
-        <h3>Admin Access</h3>
-        <input type="password" id="secretPass" placeholder="Admin Password ရိုက်ပါ" style="width:100%; padding:10px; margin:10px 0;">
-        <button onclick="checkAdmin()" style="width:100%; padding:10px; background:#FB8500; color:white; border:none; border-radius:5px; cursor:pointer;">Enter Dashboard</button>
-    </div>
-</div>
-
-<script>
-    // Ctrl + Shift + A နှိပ်မှ Admin Popup ပေါ်လာမည်
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-            document.getElementById('adminModal').style.display = 'flex';
-        }
-    });
-
-    function checkAdmin() {
-        const pass = document.getElementById('secretPass').value;
-        if(pass === "123456") { // သင့် လျှို့ဝှက် စကားဝှက်
-            window.location.href = "admin.html"; // admin စာမျက်နှာသို့ လွှဲပေးမည်
-        } else {
-            alert("စကားဝှက် မှားယွင်းနေပါသည်!");
-        }
-    }
-</script>
-
-<!-- Floating Admin Button (မျက်နှာပြင်ရဲ့ အောက်ခြေ ညာဘက်ထောင့်တွင် ပေါ်နေမည်) -->
-<a href="admin.html" class="floating-admin-btn" title="Go to Admin Dashboard">
-    ⚙️ Admin
-</a>
-
-<style>
-.floating-admin-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #023047;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 9999;
-    transition: 0.3s;
-}
-.floating-admin-btn:hover {
-    background-color: #fb8500;
-    transform: scale(1.05);
-}
-</style>
-    <!-- Navbar / Header ထဲတွင် ထည့်ရန် HTML -->
-<div id="authNavArea">
-    <!-- JavaScript မှ အလိုအလျောက် Login / Logout / Admin ခလုတ်များ လာရောက်ပြသပေးပါမည် -->
-</div>
-
-<script>
-    function checkUserRole() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const navArea = document.getElementById('authNavArea');
-
-        if (!navArea) return;
-
-        if (currentUser) {
-            let html = `<span style="margin-right:10px; font-weight:bold;">👤 ${currentUser.username}</span>`;
-            
-            // အကယ်၍ အကောင့်သည် Admin ဖြစ်ပါက Admin Dashboard ခလုတ် ပြပေးမည်
-            if (currentUser.role === 'admin') {
-                html += `<a href="admin.html" style="background:#fb8500; color:white; padding:6px 12px; border-radius:5px; text-decoration:none; font-weight:bold; margin-right:10px;">⚙️ Admin Dashboard</a>`;
-            }
-
-            html += `<button onclick="logoutUser()" style="background:#dc3545; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer;">Logout</button>`;
-            navArea.innerHTML = html;
-        } else {
-            // Login မဝင်ရသေးပါက
-            navArea.innerHTML = `<a href="login.html" style="background:#023047; color:white; padding:6px 12px; border-radius:5px; text-decoration:none; font-weight:bold;">🔑 Login / Register</a>`;
-        }
-    }
-
-    function logoutUser() {
-        localStorage.removeItem('currentUser');
-        window.location.reload();
-    }
-
-    document.addEventListener('DOMContentLoaded', checkUserRole);
-</script>
+    <!-- User Auth & Role Check Script -->
     <script>
-    function checkUserRole() {
-        // localStorage ထဲက လက်ရှိ Login ဝင်ထားတဲ့ User အချက်အလက်ကို ယူမည်
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const navArea = document.getElementById('authNavArea');
+        function checkUserRole() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const navArea = document.getElementById('authNavArea');
 
-        if (!navArea) return;
+            if (!navArea) return;
 
-        if (currentUser) {
-            // Login ဝင်ထားပါက User နာမည်နှင့် Logout ခလုတ် ပြမည်
-            let html = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 14px; font-weight: bold; color: #023047;">👤 ${currentUser.username}</span>
-            `;
-            
-            // Role က 'admin' ဖြစ်ပါက Admin Dashboard ခလုတ် ပြမည်
-            if (currentUser.role === 'admin') {
+            if (currentUser) {
+                let html = `
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 13px; font-weight: bold; color: var(--text-dark);">👤 ${currentUser.username}</span>
+                `;
+                
+                // Admin Account ဖြစ်ပါက Admin Dashboard ခလုတ်ပြမည်
+                if (currentUser.role === 'admin') {
+                    html += `
+                        <a href="admin.html" style="background: #fb8500; color: white; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; white-space: nowrap;">
+                            ⚙️ Admin
+                        </a>
+                    `;
+                }
+
                 html += `
-                    <a href="admin.html" style="background: #fb8500; color: white; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px;">
-                        ⚙️ Admin Dashboard
+                        <button onclick="logoutUser()" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 12px;">
+                            Logout
+                        </button>
+                    </div>
+                `;
+                navArea.innerHTML = html;
+            } else {
+                // Login မဝင်ရသေးပါက Login / Register ခလုတ် အဝိုင်းလေး ပြမည်
+                navArea.innerHTML = `
+                    <a href="login.html" style="background: #023047; color: white; padding: 8px 14px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 13px; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;">
+                        <i class="fa-solid fa-user"></i> Login
                     </a>
                 `;
             }
-
-            html += `
-                    <button onclick="logoutUser()" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px;">
-                        Logout
-                    </button>
-                </div>
-            `;
-            navArea.innerHTML = html;
-        } else {
-            // Login မဝင်ရသေးပါက Login / Register ခလုတ် ပြမည်
-            navArea.innerHTML = `
-                <a href="login.html" style="background: #023047; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px;">
-                    🔑 Login / Register
-                </a>
-            `;
         }
-    }
 
-    function logoutUser() {
-        localStorage.removeItem('currentUser'); // Session ဖျက်မည်
-        window.location.reload(); // Page ပြန် refresh လုပ်မည်
-    }
+        function logoutUser() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
 
-    // စာမျက်နှာ ပွင့်တာနဲ့ တန်းပြီး စစ်ဆေးပေးမည်
-    document.addEventListener('DOMContentLoaded', checkUserRole);
-</script>
+        document.addEventListener('DOMContentLoaded', checkUserRole);
+    </script>
 </body>
 </html>
