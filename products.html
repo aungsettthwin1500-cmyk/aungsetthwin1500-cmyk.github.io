@@ -341,5 +341,138 @@
         });
     </script>
 
+    <!-- Dynamic Product Load & Filter JavaScript -->
+    <script>
+        // မူလ ပါပြီးသား Product 48 ခု Data
+        const initialProducts = [
+            // Dresses (12)
+            { name: "Summer Yellow Mini Dress", category: "dresses", price: "25,000 MMK", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" },
+            { name: "Floral Sun Dress", category: "dresses", price: "28,000 MMK", image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500" },
+            { name: "Casual Yellow Maxi Dress", category: "dresses", price: "32,000 MMK", image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500" },
+            { name: "Elegance Bodycon Dress", category: "dresses", price: "35,000 MMK", image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500" },
+            { name: "Vintage Pattern Dress", category: "dresses", price: "29,000 MMK", image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500" },
+            { name: "Boho Style Beach Dress", category: "dresses", price: "27,000 MMK", image: "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=500" },
+            { name: "Yellow Evening Gown", category: "dresses", price: "48,000 MMK", image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500" },
+            { name: "Off-Shoulder Summer Dress", category: "dresses", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=500" },
+            { name: "Cotton Daily Dress", category: "dresses", price: "22,000 MMK", image: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=500" },
+            { name: "Layered Ruffle Dress", category: "dresses", price: "30,000 MMK", image: "https://images.unsplash.com/photo-1495385794356-15071159a960?w=500" },
+            { name: "Sleeve Wrap Dress", category: "dresses", price: "27,500 MMK", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500" },
+            { name: "Pastel Yellow Slip Dress", category: "dresses", price: "24,000 MMK", image: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=500" },
+
+            // Tops & Tees (12)
+            { name: "Sunny Crop Top", category: "tops", price: "18,500 MMK", image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" },
+            { name: "Sunflower Graphic Tee", category: "tops", price: "16,000 MMK", image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" },
+            { name: "Minimalist Black Tee", category: "tops", price: "15,000 MMK", image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500" },
+            { name: "Yellow Knit Sweater", category: "tops", price: "28,000 MMK", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" },
+            { name: "Casual Denim Top", category: "tops", price: "22,000 MMK", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500" },
+            { name: "Basic White Tee", category: "tops", price: "14,000 MMK", image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=500" },
+            { name: "Oversized Yellow Hoodie", category: "tops", price: "32,000 MMK", image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500" },
+            { name: "Vintage Printed Blouse", category: "tops", price: "21,000 MMK", image: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=500" },
+            { name: "Striped Casual Shirt", category: "tops", price: "19,000 MMK", image: "https://images.unsplash.com/photo-1525171254930-643fc658b64e?w=500" },
+            { name: "Cotton Sweatshirt", category: "tops", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" },
+            { name: "Sleeveless Top", category: "tops", price: "16,500 MMK", image: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500" },
+            { name: "Long Sleeve Polo", category: "tops", price: "23,000 MMK", image: "https://images.unsplash.com/photo-1534126511673-b6899657816a?w=500" },
+
+            // Jackets (12)
+            { name: "Fashion Outer Jacket", category: "jackets", price: "45,000 MMK", image: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=500" },
+            { name: "Yellow Rain Coat", category: "jackets", price: "38,000 MMK", image: "https://images.unsplash.com/photo-1548883354-7622d03aca27?w=500" },
+            { name: "Classic Winter Coat", category: "jackets", price: "55,000 MMK", image: "https://images.unsplash.com/photo-1520975954732-35dd22299614?w=500" },
+            { name: "Leather Biker Jacket", category: "jackets", price: "62,000 MMK", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
+            { name: "Denim Classic Jacket", category: "jackets", price: "42,000 MMK", image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=500" },
+            { name: "Casual Blazer", category: "jackets", price: "49,000 MMK", image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" },
+            { name: "Windbreaker Jacket", category: "jackets", price: "36,000 MMK", image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500" },
+            { name: "Bomber Yellow Jacket", category: "jackets", price: "40,000 MMK", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" },
+            { name: "Fleece Warm Cardigan", category: "jackets", price: "34,000 MMK", image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500" },
+            { name: "Overcoat Trench", category: "jackets", price: "58,000 MMK", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500" },
+            { name: "Cropped Outer Wear", category: "jackets", price: "37,000 MMK", image: "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=500" },
+            { name: "Sporty Track Jacket", category: "jackets", price: "35,000 MMK", image: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?w=500" },
+
+            // Pants & Skirts (12)
+            { name: "Classic Blue Jeans", category: "pants", price: "28,000 MMK", image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" },
+            { name: "Yellow Casual Trouser", category: "pants", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500" },
+            { name: "Wide Leg Pants", category: "pants", price: "25,000 MMK", image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=500" },
+            { name: "Pleated Yellow Skirt", category: "pants", price: "22,000 MMK", image: "https://images.unsplash.com/photo-1508427953056-b00b8d78ebf5?w=500" },
+            { name: "Denim Mini Skirt", category: "pants", price: "20,000 MMK", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500" },
+            { name: "Comfy Sweatpants", category: "pants", price: "23,000 MMK", image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500" },
+            { name: "High Waist Trouser", category: "pants", price: "27,000 MMK", image: "https://images.unsplash.com/photo-1551854838-212c50b4c184?w=500" },
+            { name: "Floral Long Skirt", category: "pants", price: "24,000 MMK", image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500" },
+            { name: "Cargo Utility Pants", category: "pants", price: "30,000 MMK", image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500" },
+            { name: "Casual Short Pants", category: "pants", price: "18,000 MMK", image: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=500" },
+            { name: "Slim Fit Chinos", category: "pants", price: "29,000 MMK", image: "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?w=500" },
+            { name: "Linen Summer Pants", category: "pants", price: "26,000 MMK", image: "https://images.unsplash.com/photo-1560243563-062bfc001d68?w=500" }
+        ];
+
+        // Admin မှာ ပြင်ထားတာရှိရင် localStorage ကယူမည်၊ မရှိရင် မူလ 48 ခုကို ပြမည်
+        const products = JSON.parse(localStorage.getItem('sunflowerProducts')) || initialProducts;
+
+        // Admin ထဲက Category အရေအတွက်နဲ့ Filter Button က အရေအတွက်တူအောင် ပြင်ပေးခြင်း
+        function updateCategoryCounts() {
+            const counts = { dresses: 0, tops: 0, jackets: 0, pants: 0 };
+            products.forEach(p => {
+                if (counts[p.category] !== undefined) counts[p.category]++;
+            });
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                const cat = btn.getAttribute('data-filter');
+                if (cat === 'dresses') btn.innerText = `Dresses (${counts.dresses})`;
+                if (cat === 'tops') btn.innerText = `Tops & Tees (${counts.tops})`;
+                if (cat === 'jackets') btn.innerText = `Jackets (${counts.jackets})`;
+                if (cat === 'pants') btn.innerText = `Pants & Skirts (${counts.pants})`;
+            });
+        }
+
+        // Product Cards များကို Dynamic ဆွဲထုတ်ပေးခြင်း
+        function displayProducts() {
+            const grid = document.querySelector('.product-grid');
+            grid.innerHTML = ''; // မူလ static တတ်ထားသည်များကို ရှင်းထုတ်မည်
+
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.setAttribute('data-category', p.category);
+
+                card.innerHTML = `
+                    <div class="img-box"><img src="${p.image}" alt="${p.name}"></div>
+                    <div class="product-details">
+                        <h3>${p.name}</h3>
+                        <span class="price">${p.price}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            setupFilterLogic();
+            updateCategoryCounts();
+        }
+
+        // Filter ခလုတ်များ စနစ်တကျ အလုပ်လုပ်ရန် Logic
+        function setupFilterLogic() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    productCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.classList.remove('hide');
+                        } else {
+                            card.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Page စတင် load လုပ်သည်နှင့် Product များကို ပြသမည်
+        document.addEventListener('DOMContentLoaded', displayProducts);
+    </script>
+    
+
 </body>
 </html>
