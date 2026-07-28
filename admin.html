@@ -322,5 +322,16 @@
         }
     })();
 </script>
+    <script>
+    (function protectAdminPage() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // Login မဝင်ထားရင် သို့မဟုတ် Role က 'admin' မဟုတ်ရင် index.html သို့ ပြန်ပို့မည်
+        if (!currentUser || currentUser.role !== 'admin') {
+            alert("ဒီစာမျက်နှာကို ဝင်ရောက်ကြည့်ရှုခွင့် မရှိပါ။ Admin Account ဖြင့် Login ဝင်ပါ။");
+            window.location.href = "index.html";
+        }
+    })();
+</script>
 </body>
 </html>
