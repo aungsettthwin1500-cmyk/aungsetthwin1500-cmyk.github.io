@@ -631,5 +631,32 @@
         </div>
     </footer>
 
+    <!-- Admin Modal Popup (Normally Hidden) -->
+<div id="adminModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:30px; border-radius:15px; width:350px;">
+        <h3>Admin Access</h3>
+        <input type="password" id="secretPass" placeholder="Admin Password ရိုက်ပါ" style="width:100%; padding:10px; margin:10px 0;">
+        <button onclick="checkAdmin()" style="width:100%; padding:10px; background:#FB8500; color:white; border:none; border-radius:5px; cursor:pointer;">Enter Dashboard</button>
+    </div>
+</div>
+
+<script>
+    // Ctrl + Shift + A နှိပ်မှ Admin Popup ပေါ်လာမည်
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+            document.getElementById('adminModal').style.display = 'flex';
+        }
+    });
+
+    function checkAdmin() {
+        const pass = document.getElementById('secretPass').value;
+        if(pass === "123456") { // သင့် လျှို့ဝှက် စကားဝှက်
+            window.location.href = "admin.html"; // admin စာမျက်နှာသို့ လွှဲပေးမည်
+        } else {
+            alert("စကားဝှက် မှားယွင်းနေပါသည်!");
+        }
+    }
+</script>
+    
 </body>
 </html>
