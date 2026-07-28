@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account အသစ်ဖွင့်ရန် - Sunflower Clothing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); width: 100%; max-width: 380px; text-align: center; }
+        h2 { color: #023047; margin-bottom: 20px; font-size: 1.5rem; }
+        .form-group { text-align: left; margin-bottom: 15px; }
+        label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; color: #333; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.95rem; }
+        .btn-submit { width: 100%; padding: 12px; background: #fb8500; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-submit:hover { background: #e07600; }
+        .link { margin-top: 15px; font-size: 0.85rem; color: #555; }
+        .link a { color: #023047; font-weight: bold; text-decoration: underline; }
+    </style>
+</head>
+<body>
 
+    <div class="card">
+        <h2>Account အသစ်ဖွင့်ရန်</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Username / Email</label>
+                <input type="text" id="username" required placeholder="အမည် သို့မဟုတ် အီးမေးလ် ရိုက်ပါ">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required placeholder="လျှို့ဝှက်နံပါတ် ရိုက်ပါ">
+            </div>
+            <button type="submit" class="btn-submit">Sign Up</button>
+        </form>
+        <div class="link">
+            Account ရှိပြီးသားဆိုပါက <a href="login.html">Login ဝင်ရန်</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Username တူပြီးသားရှိမရှိ စစ်မည်
+            if (users.some(u => u.username === username)) {
+                alert('ဤ Username/Email ဖြင့် Account ဖွင့်ပြီးသား ရှိနေပါသည်!');
+                return;
+            }
+
+            // Account သစ်ကို role: 'user' အနေဖြင့် စာရင်းသွင်းမည်
+            const newUser = {
+                id: Date.now(),
+                username: username,
+                password: password,
+                role: 'user' // Default role
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Account အသစ် အောင်မြင်စွာ ဖွင့်ပြီးပါပြီ! Login ဝင်ရောက်နိုင်ပါပြီ။');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
