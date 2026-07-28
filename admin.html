@@ -305,5 +305,22 @@
 
         renderProducts();
     </script>
+<script>
+    // admin.html ထဲ တိုက်ရိုက်ဝင်လာပါက Password စစ်ဆေးခြင်း
+    (function protectAdmin() {
+        const SECRET_PASSWORD = "12345"; // index.html က Password နဲ့ တူရပါမည်
+        
+        // Session ထဲမှာ Auth အတည်ပြုထားခြင်း ရှိမရှိ စစ်မည်
+        if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+            const pass = prompt("Admin စာမျက်နှာသို့ ဝင်ရောက်ရန် Password ရိုက်ထည့်ပါ:");
+            if (pass === SECRET_PASSWORD) {
+                sessionStorage.setItem("adminLoggedIn", "true");
+            } else {
+                alert("Password မှားယွင်းပါသည်!");
+                window.location.href = "index.html"; // Password မှားပါက မူလ စာမျက်နှာသို့ ပြန်ပို့မည်
+            }
+        }
+    })();
+</script>
 </body>
 </html>
